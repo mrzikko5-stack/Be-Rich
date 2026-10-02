@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BE RICH</title>
 
 <style>
@@ -12,8 +13,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #111;
     color: white;
+    background: #111;
     overflow: hidden;
 }
 
@@ -21,116 +22,350 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-#menu {
-    background: linear-gradient(135deg, #111, #292929);
-}
-
-.logo {
-    font-size: 80px;
-    font-weight: bold;
-    margin-bottom: 50px;
-    letter-spacing: 5px;
-}
-
-button {
-    width: 300px;
-    padding: 17px;
-    margin: 8px;
-    border: none;
-    border-radius: 8px;
-    background: #333;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #555;
-    transform: scale(1.03);
-}
-
-.smallButton {
-    width: 180px;
-    font-size: 18px;
 }
 
 .hidden {
     display: none !important;
 }
 
-.panel {
-    background: #202020;
-    padding: 35px;
-    border-radius: 15px;
-    width: 500px;
-    text-align: center;
+/* ================= MAIN MENU ================= */
+
+#menu {
+    flex-direction: column;
+    background:
+        radial-gradient(circle at center, #333 0%, #111 70%);
 }
 
-input, select {
+.logo {
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    margin-bottom: 45px;
+    text-shadow: 0 5px 15px black;
+}
+
+.menu-button {
+    width: 300px;
+    padding: 17px;
+    margin: 7px;
+    border: 0;
+    border-radius: 8px;
+    background: #292929;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background: #444;
+    transform: scale(1.03);
+}
+
+/* ================= PANELS ================= */
+
+.panel {
+    width: 500px;
+    max-width: 90%;
+    padding: 30px;
+    background: #202020;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 40px black;
+}
+
+.panel h2 {
+    font-size: 36px;
+}
+
+input,
+select {
     width: 100%;
     padding: 14px;
-    margin: 10px 0 20px;
+    margin: 8px 0 18px;
+    border: 1px solid #555;
+    border-radius: 7px;
     background: #111;
     color: white;
-    border: 1px solid #555;
-    border-radius: 6px;
     font-size: 18px;
 }
 
-h2 {
-    font-size: 35px;
+/* ================= GAME ================= */
+
+#game {
+    display: none;
+    position: relative;
+    background: #182018;
 }
+
+/* Money HUD */
+
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    z-index: 20;
+    font-size: 26px;
+    background: rgba(0,0,0,0.65);
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+/* Camping area */
+
+.camping-area {
+    width: 900px;
+    max-width: 90vw;
+    height: 600px;
+    max-height: 80vh;
+    position: relative;
+    background:
+        linear-gradient(#60764d 0 70%, #444 70% 100%);
+    border: 8px solid #222;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px black;
+}
+
+/* Sky */
+
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(#52779b, #9fc4d9);
+    border-radius: 12px 12px 0 0;
+}
+
+/* Ground */
+
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: #526541;
+}
+
+/* ================= CAMPER ================= */
+
+.camper {
+    position: absolute;
+    width: 520px;
+    height: 270px;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    background: #d8d5c7;
+    border: 8px solid #333;
+    border-radius: 35px 35px 18px 18px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* Camper roof */
+
+.camper-roof {
+    position: absolute;
+    top: -25px;
+    left: 25px;
+    width: 450px;
+    height: 30px;
+    background: #333;
+    border-radius: 20px;
+}
+
+/* Windows */
+
+.window {
+    position: absolute;
+    top: 45px;
+    width: 105px;
+    height: 80px;
+    background: #35546a;
+    border: 6px solid #222;
+    border-radius: 10px;
+}
+
+.window.left {
+    left: 45px;
+}
+
+.window.right {
+    right: 45px;
+}
+
+/* Door */
+
+.door {
+    position: absolute;
+    right: 165px;
+    bottom: 0;
+    width: 95px;
+    height: 175px;
+    background: #aaa99c;
+    border: 6px solid #333;
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.door-handle {
+    position: absolute;
+    right: 12px;
+    top: 85px;
+    width: 12px;
+    height: 12px;
+    background: #222;
+    border-radius: 50%;
+}
+
+/* Wheels */
+
+.wheel {
+    position: absolute;
+    bottom: -38px;
+    width: 75px;
+    height: 75px;
+    background: #111;
+    border: 10px solid #333;
+    border-radius: 50%;
+}
+
+.wheel.left {
+    left: 70px;
+}
+
+.wheel.right {
+    right: 70px;
+}
+
+/* Camper stripe */
+
+.stripe {
+    position: absolute;
+    left: 0;
+    top: 145px;
+    width: 100%;
+    height: 25px;
+    background: #7d6854;
+}
+
+/* ================= PLAYER ================= */
+
+.player {
+    position: absolute;
+    left: 50%;
+    bottom: 45px;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 95px;
+    z-index: 10;
+}
+
+/* Head */
+
+.player-head {
+    width: 48px;
+    height: 48px;
+    background: #e5b28d;
+    border: 4px solid #222;
+    border-radius: 50%;
+    margin: auto;
+}
+
+/* Body */
+
+.player-body {
+    width: 42px;
+    height: 48px;
+    background: #3d5f86;
+    border: 4px solid #222;
+    border-radius: 10px;
+    margin: -2px auto 0;
+}
+
+/* Player label */
+
+.player-name {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background: rgba(0,0,0,0.7);
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ================= EXIT BUTTON ================= */
+
+.exit-button {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    z-index: 30;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.exit-button:hover {
+    background: #444;
+}
+
+/* ================= SAVES ================= */
 
 .save {
     background: #292929;
-    padding: 20px;
+    padding: 15px;
     margin: 10px 0;
-    border-radius: 10px;
+    border-radius: 8px;
     text-align: left;
 }
 
 .save button {
-    width: 150px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-#game {
-    background: #49613d;
-}
-
-#game h1 {
-    font-size: 50px;
-}
-
-.money {
-    font-size: 28px;
+    padding: 8px 18px;
+    margin-top: 8px;
+    cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MAIN MENU -->
+<!-- ================= MAIN MENU ================= -->
 
 <div id="menu" class="screen">
 
     <div class="logo">BE RICH</div>
 
-    <button onclick="showPlay()">PLAY</button>
-    <button onclick="showNewGame()">NEW GAME</button>
-    <button onclick="settings()">SETTINGS</button>
-    <button onclick="credits()">CREDITS</button>
+    <button class="menu-button" onclick="showPlay()">
+        PLAY
+    </button>
+
+    <button class="menu-button" onclick="showNewGame()">
+        NEW GAME
+    </button>
+
+    <button class="menu-button" onclick="settings()">
+        SETTINGS
+    </button>
+
+    <button class="menu-button" onclick="credits()">
+        CREDITS
+    </button>
 
 </div>
 
 
-<!-- PLAY / SAVES -->
+<!-- ================= PLAY / SAVES ================= -->
 
 <div id="playScreen" class="screen hidden">
 
@@ -140,14 +375,16 @@ h2 {
 
         <div id="saves"></div>
 
-        <button class="smallButton" onclick="backToMenu()">BACK</button>
+        <button class="menu-button" onclick="backToMenu()">
+            BACK
+        </button>
 
     </div>
 
 </div>
 
 
-<!-- NEW GAME -->
+<!-- ================= NEW GAME ================= -->
 
 <div id="newGameScreen" class="screen hidden">
 
@@ -157,44 +394,123 @@ h2 {
 
         <label>SERVER NAME</label>
 
-        <input id="serverName" placeholder="My Server">
+        <input
+            id="serverName"
+            placeholder="My Server"
+        >
 
         <label>PLAYERS</label>
 
         <select id="playerCount">
-            <option value="1">1 Player</option>
-            <option value="2">2 Players</option>
-            <option value="3">3 Players</option>
+
+            <option value="1">
+                1 Player
+            </option>
+
+            <option value="2">
+                2 Players
+            </option>
+
+            <option value="3">
+                3 Players
+            </option>
+
         </select>
 
-        <button onclick="playWithFriends()">PLAY WITH FRIENDS</button>
+        <button
+            class="menu-button"
+            onclick="playWithFriends()">
+            PLAY WITH FRIENDS
+        </button>
 
-        <button onclick="editSkin()">EDIT SKIN</button>
+        <button
+            class="menu-button"
+            onclick="editSkin()">
+            EDIT SKIN
+        </button>
 
-        <button onclick="createGame()">CREATE GAME</button>
+        <button
+            class="menu-button"
+            onclick="createGame()">
+            CREATE GAME
+        </button>
 
-        <button class="smallButton" onclick="backToMenu()">BACK</button>
+        <button
+            class="menu-button"
+            onclick="backToMenu()">
+            BACK
+        </button>
 
     </div>
 
 </div>
 
 
-<!-- GAME -->
+<!-- ================= GAME ================= -->
 
-<div id="game" class="screen hidden">
+<div id="game" class="screen">
 
-    <h1>🚐 BE RICH</h1>
+    <!-- MONEY -->
 
-    <div class="money">
-        💵 Money: $<span id="money">100</span>
+    <div id="hud">
+        💵 $<span id="money">100</span>
     </div>
 
-    <p id="serverText"></p>
 
-    <p>You are starting in your old camper van.</p>
+    <!-- CAMPING AREA -->
 
-    <button onclick="leaveGame()">LEAVE GAME</button>
+    <div class="camping-area">
+
+        <div class="sky"></div>
+
+        <div class="ground"></div>
+
+
+        <!-- CAMPER -->
+
+        <div class="camper">
+
+            <div class="camper-roof"></div>
+
+            <div class="window left"></div>
+
+            <div class="window right"></div>
+
+            <div class="stripe"></div>
+
+            <div class="door">
+                <div class="door-handle"></div>
+            </div>
+
+            <div class="wheel left"></div>
+
+            <div class="wheel right"></div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div class="player">
+
+            <div class="player-name">
+                Player 1
+            </div>
+
+            <div class="player-head"></div>
+
+            <div class="player-body"></div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="exit-button"
+        onclick="leaveGame()">
+        🚪 GÅ UT
+    </button>
 
 </div>
 
@@ -204,79 +520,135 @@ h2 {
 let money = 100;
 
 
-// SHOW PLAY
+/* ================= SCREEN FUNCTIONS ================= */
+
+function hideAll() {
+
+    document
+        .getElementById("menu")
+        .classList.add("hidden");
+
+    document
+        .getElementById("playScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("newGameScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("game")
+        .classList.add("hidden");
+}
+
+
+function backToMenu() {
+
+    hideAll();
+
+    document
+        .getElementById("menu")
+        .classList.remove("hidden");
+}
+
+
+/* ================= PLAY ================= */
 
 function showPlay() {
 
     hideAll();
 
-    document.getElementById("playScreen").classList.remove("hidden");
+    document
+        .getElementById("playScreen")
+        .classList.remove("hidden");
 
     loadSaves();
 }
 
 
-// SHOW NEW GAME
+/* ================= NEW GAME ================= */
 
 function showNewGame() {
 
     hideAll();
 
-    document.getElementById("newGameScreen").classList.remove("hidden");
+    document
+        .getElementById("newGameScreen")
+        .classList.remove("hidden");
 }
 
 
-// CREATE GAME
+/* ================= CREATE GAME ================= */
 
 function createGame() {
 
-    let server = document.getElementById("serverName").value;
+    let server =
+        document.getElementById("serverName").value;
 
-    let players = document.getElementById("playerCount").value;
+    let players =
+        document.getElementById("playerCount").value;
+
 
     if (server === "") {
+
         server = "My Server";
+
     }
+
 
     money = 100;
 
+
     let save = {
+
         name: server,
+
         money: money,
+
         players: players
+
     };
 
-    localStorage.setItem("beRichSave", JSON.stringify(save));
+
+    localStorage.setItem(
+        "beRichSave",
+        JSON.stringify(save)
+    );
+
 
     startGame(server, players);
 }
 
 
-// START GAME
+/* ================= START GAME ================= */
 
 function startGame(server, players) {
 
     hideAll();
 
-    document.getElementById("game").classList.remove("hidden");
+    document
+        .getElementById("game")
+        .classList.remove("hidden");
 
-    document.getElementById("money").innerText = money;
-
-    document.getElementById("serverText").innerText =
-        "Server: " + server + " | Players: " + players;
-
+    document
+        .getElementById("money")
+        .innerText = money;
 }
 
 
-// LOAD SAVES
+/* ================= LOAD SAVES ================= */
 
 function loadSaves() {
 
-    let saves = document.getElementById("saves");
+    let saves =
+        document.getElementById("saves");
 
     saves.innerHTML = "";
 
-    let savedGame = localStorage.getItem("beRichSave");
+
+    let savedGame =
+        localStorage.getItem("beRichSave");
+
 
     if (!savedGame) {
 
@@ -286,28 +658,40 @@ function loadSaves() {
         return;
     }
 
-    let save = JSON.parse(savedGame);
 
-    let div = document.createElement("div");
+    let save =
+        JSON.parse(savedGame);
+
+
+    let div =
+        document.createElement("div");
 
     div.className = "save";
+
 
     div.innerHTML =
         "<b>" + save.name + "</b><br>" +
         "💵 Money: $" + save.money + "<br>" +
         "👥 Players: " + save.players;
 
-    let button = document.createElement("button");
+
+    let button =
+        document.createElement("button");
 
     button.innerText = "PLAY";
+
 
     button.onclick = function() {
 
         money = save.money;
 
-        startGame(save.name, save.players);
+        startGame(
+            save.name,
+            save.players
+        );
 
     };
+
 
     div.appendChild(button);
 
@@ -315,104 +699,69 @@ function loadSaves() {
 }
 
 
-// PLAY WITH FRIENDS
-
-function playWithFriends() {
-
-    alert(
-        "Multiplayer kjem snart! 👥\n\n" +
-        "Her skal du seinare få ein serverkode som vennene dine kan bruke."
-    );
-
-}
-
-
-// EDIT SKIN
-
-function editSkin() {
-
-    alert(
-        "SKIN EDITOR kjem snart! 👤\n\n" +
-        "Her skal du kunne lage karakteren din."
-    );
-
-}
-
-
-// SETTINGS
-
-function settings() {
-
-    alert("Settings kjem snart! ⚙️");
-
-}
-
-
-// CREDITS
-
-function credits() {
-
-    alert(
-        "BE RICH\n\n" +
-        "Created by you 😎"
-    );
-
-}
-
-
-// LEAVE GAME
+/* ================= LEAVE GAME ================= */
 
 function leaveGame() {
 
     saveGame();
 
     backToMenu();
-
 }
 
 
-// SAVE GAME
+/* ================= SAVE ================= */
 
 function saveGame() {
 
-    let server =
-        document.getElementById("serverText").innerText;
+    let save = {
+
+        name: "My Server",
+
+        money: money,
+
+        players: 1
+
+    };
+
 
     localStorage.setItem(
         "beRichSave",
-        JSON.stringify({
-            name: server,
-            money: money,
-            players: 1
-        })
+        JSON.stringify(save)
     );
-
 }
 
 
-// BACK TO MENU
+/* ================= OTHER BUTTONS ================= */
 
-function backToMenu() {
+function playWithFriends() {
 
-    hideAll();
-
-    document.getElementById("menu").classList.remove("hidden");
-
+    alert(
+        "PLAY WITH FRIENDS kjem snart! 👥"
+    );
 }
 
 
-// HIDE ALL SCREENS
+function editSkin() {
 
-function hideAll() {
+    alert(
+        "EDIT SKIN kjem snart! 👤"
+    );
+}
 
-    document.getElementById("menu").classList.add("hidden");
 
-    document.getElementById("playScreen").classList.add("hidden");
+function settings() {
 
-    document.getElementById("newGameScreen").classList.add("hidden");
+    alert(
+        "SETTINGS kjem snart! ⚙️"
+    );
+}
 
-    document.getElementById("game").classList.add("hidden");
 
+function credits() {
+
+    alert(
+        "BE RICH\n\nCreated by you 😎"
+    );
 }
 
 </script>
