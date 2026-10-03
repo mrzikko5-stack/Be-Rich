@@ -165,8 +165,6 @@ select {
     box-shadow: 0 15px 30px rgba(0,0,0,0.5);
 }
 
-/* Camper roof */
-
 .camper-roof {
     position: absolute;
     top: -25px;
@@ -176,8 +174,6 @@ select {
     background: #333;
     border-radius: 20px;
 }
-
-/* Windows */
 
 .window {
     position: absolute;
@@ -196,8 +192,6 @@ select {
 .window.right {
     right: 45px;
 }
-
-/* Door */
 
 .door {
     position: absolute;
@@ -221,8 +215,6 @@ select {
     border-radius: 50%;
 }
 
-/* Wheels */
-
 .wheel {
     position: absolute;
     bottom: -38px;
@@ -240,8 +232,6 @@ select {
 .wheel.right {
     right: 70px;
 }
-
-/* Camper stripe */
 
 .stripe {
     position: absolute;
@@ -264,8 +254,6 @@ select {
     z-index: 10;
 }
 
-/* Head */
-
 .player-head {
     width: 48px;
     height: 48px;
@@ -275,8 +263,6 @@ select {
     margin: auto;
 }
 
-/* Body */
-
 .player-body {
     width: 42px;
     height: 48px;
@@ -285,8 +271,6 @@ select {
     border-radius: 10px;
     margin: -2px auto 0;
 }
-
-/* Player label */
 
 .player-name {
     position: absolute;
@@ -334,6 +318,23 @@ select {
     padding: 8px 18px;
     margin-top: 8px;
     cursor: pointer;
+}
+
+/* DELETE BUTTON */
+
+.delete-button {
+    background: #8b2222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-top: 8px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background: #b52d2d;
 }
 </style>
 </head>
@@ -450,23 +451,15 @@ select {
 
 <div id="game" class="screen">
 
-    <!-- MONEY -->
-
     <div id="hud">
         💵 $<span id="money">100</span>
     </div>
-
-
-    <!-- CAMPING AREA -->
 
     <div class="camping-area">
 
         <div class="sky"></div>
 
         <div class="ground"></div>
-
-
-        <!-- CAMPER -->
 
         <div class="camper">
 
@@ -488,9 +481,6 @@ select {
 
         </div>
 
-
-        <!-- PLAYER -->
-
         <div class="player">
 
             <div class="player-name">
@@ -504,7 +494,6 @@ select {
         </div>
 
     </div>
-
 
     <button
         class="exit-button"
@@ -675,13 +664,15 @@ function loadSaves() {
         "👥 Players: " + save.players;
 
 
-    let button =
+    /* PLAY BUTTON */
+
+    let playButton =
         document.createElement("button");
 
-    button.innerText = "PLAY";
+    playButton.innerText = "PLAY";
 
 
-    button.onclick = function() {
+    playButton.onclick = function() {
 
         money = save.money;
 
@@ -693,7 +684,43 @@ function loadSaves() {
     };
 
 
-    div.appendChild(button);
+    div.appendChild(playButton);
+
+
+    /* DELETE BUTTON */
+
+    let deleteButton =
+        document.createElement("button");
+
+    deleteButton.innerText =
+        "🗑️ DELETE SAVED SERVER";
+
+    deleteButton.className =
+        "delete-button";
+
+
+    deleteButton.onclick = function() {
+
+        let confirmDelete =
+            confirm(
+                "Are you sure you want to delete this server?"
+            );
+
+
+        if (confirmDelete) {
+
+            localStorage.removeItem(
+                "beRichSave"
+            );
+
+            loadSaves();
+
+        }
+
+    };
+
+
+    div.appendChild(deleteButton);
 
     saves.appendChild(div);
 }
