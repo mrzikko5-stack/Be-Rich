@@ -21,15 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.025) 50%, transparent 100%);
-    pointer-events: none;
-}
-
 button,
 input {
     font-family: inherit;
@@ -39,13 +30,13 @@ button {
     cursor: pointer;
 }
 
-/* MAIN */
-
 #app {
     min-height: 100vh;
 }
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
 
 .menu {
     min-height: 100vh;
@@ -63,11 +54,10 @@ button {
     letter-spacing: -7px;
     line-height: .85;
     text-align: center;
-    color: #fff;
+    color: white;
     text-shadow:
         0 0 10px rgba(255,255,255,.15),
         0 0 40px rgba(255,255,255,.08);
-    animation: logoFloat 4s ease-in-out infinite;
 }
 
 .subtitle {
@@ -76,15 +66,6 @@ button {
     letter-spacing: 5px;
     font-size: 13px;
     text-transform: uppercase;
-}
-
-@keyframes logoFloat {
-    0%,100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-6px);
-    }
 }
 
 .main-buttons {
@@ -112,7 +93,6 @@ button {
     transform: translateY(-3px);
     border-color: #666;
     background: linear-gradient(180deg, #242424, #141414);
-    box-shadow: 0 12px 35px rgba(0,0,0,.5);
 }
 
 .main-btn.primary {
@@ -133,7 +113,9 @@ button {
     font-size: 12px;
 }
 
-/* SCREEN */
+/* =========================
+   SCREENS
+========================= */
 
 .screen {
     min-height: 100vh;
@@ -173,7 +155,9 @@ button {
     background: #222;
 }
 
-/* PANELS */
+/* =========================
+   PANELS
+========================= */
 
 .panel {
     max-width: 850px;
@@ -228,7 +212,9 @@ button {
     line-height: 1.4;
 }
 
-/* FORMS */
+/* =========================
+   FORMS
+========================= */
 
 .form-group {
     margin-bottom: 20px;
@@ -276,7 +262,9 @@ button {
     background: #ddd;
 }
 
-/* PARTY */
+/* =========================
+   PARTY
+========================= */
 
 .party-code {
     text-align: center;
@@ -309,7 +297,9 @@ button {
     font-weight: bold;
 }
 
-/* FRIENDS */
+/* =========================
+   FRIENDS
+========================= */
 
 .friend-list {
     display: flex;
@@ -349,7 +339,9 @@ button {
     border-radius: 6px;
 }
 
-/* NOTIFICATIONS */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
 .notification {
     border: 1px solid #292929;
@@ -369,7 +361,9 @@ button {
     font-size: 13px;
 }
 
-/* GAME */
+/* =========================
+   GAME
+========================= */
 
 .game {
     min-height: 100vh;
@@ -401,6 +395,17 @@ button {
 
 .money span {
     color: #65e26e;
+}
+
+.player-display {
+    position: absolute;
+    top: 80px;
+    left: 25px;
+    background: rgba(0,0,0,.7);
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-weight: bold;
 }
 
 .objective {
@@ -471,9 +476,12 @@ button {
     margin-top: 8px;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:650px) {
+
     .option-grid {
         grid-template-columns: 1fr;
     }
@@ -501,310 +509,578 @@ button {
 
 <div id="app">
 
-    <!-- MAIN MENU -->
-    <section id="menu" class="menu">
+<!-- =========================
+     MAIN MENU
+========================= -->
 
-        <div class="logo">BE RICH</div>
-        <div class="subtitle">Start with nothing. Build everything.</div>
+<section id="menu" class="menu">
 
-        <div class="main-buttons">
-            <button class="main-btn primary" onclick="showScreen('play')">
-                PLAY
-            </button>
+    <div class="logo">BE RICH</div>
 
-            <button class="main-btn" onclick="showScreen('friends')">
-                FRIENDS
-            </button>
+    <div class="subtitle">
+        Start with nothing. Build everything.
+    </div>
 
-            <button class="main-btn" onclick="showScreen('notifications')">
-                NOTIFICATIONS
-            </button>
+    <div class="main-buttons">
 
-            <button class="main-btn" onclick="showScreen('settings')">
-                SETTINGS
-            </button>
+        <button class="main-btn primary" onclick="openPlay()">
+            PLAY
+        </button>
 
-            <button class="main-btn" onclick="showScreen('credits')">
-                CREDITS
-            </button>
+        <button class="main-btn" onclick="showScreen('friends')">
+            FRIENDS
+        </button>
+
+        <button class="main-btn" onclick="showScreen('notifications')">
+            NOTIFICATIONS
+        </button>
+
+        <button class="main-btn" onclick="showScreen('settings')">
+            SETTINGS
+        </button>
+
+        <button class="main-btn" onclick="showScreen('credits')">
+            CREDITS
+        </button>
+
+    </div>
+
+    <div class="version">
+        BE RICH • Prototype
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PLAY
+========================= -->
+
+<section id="play" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            PLAY
         </div>
 
-        <div class="version">BE RICH • Prototype</div>
-    </section>
+        <button class="back-btn" onclick="showScreen('menu')">
+            BACK
+        </button>
 
+    </div>
 
-    <!-- PLAY -->
-    <section id="play" class="screen">
+    <div class="panel">
 
-        <div class="topbar">
-            <div class="top-title">PLAY</div>
-            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+        <!-- NAME BOX -->
+
+        <div id="nameBox" style="display:none;">
+
+            <h2>ENTER YOUR NAME</h2>
+
+            <p>
+                Choose the name you want other players to see.
+            </p>
+
+            <input
+                id="playerNameInput"
+                class="text-input"
+                maxlength="20"
+                placeholder="Enter your name..."
+            >
+
+            <button class="create-btn" onclick="savePlayerName()">
+                CONTINUE
+            </button>
+
         </div>
 
-        <div class="panel">
 
-            <h2>How do you want to play?</h2>
-            <p>Choose how you want to start your journey.</p>
+        <!-- PLAY OPTIONS -->
+
+        <div id="playOptions">
+
+            <h2>
+                How do you want to play?
+            </h2>
+
+            <p>
+                Choose how you want to start your journey.
+            </p>
 
             <div class="option-grid">
 
                 <button class="option" onclick="startSolo()">
-                    <div class="option-title">PLAY SOLO</div>
+
+                    <div class="option-title">
+                        PLAY SOLO
+                    </div>
+
                     <div class="option-desc">
                         Start your own game and build your fortune alone.
                     </div>
+
                 </button>
 
+
                 <button class="option" onclick="showScreen('friendsPlay')">
-                    <div class="option-title">PLAY WITH FRIENDS</div>
+
+                    <div class="option-title">
+                        PLAY WITH FRIENDS
+                    </div>
+
                     <div class="option-desc">
                         Create a private party or join one with a code.
                     </div>
+
                 </button>
 
             </div>
 
         </div>
-    </section>
+
+    </div>
+
+</section>
 
 
-    <!-- FRIEND PLAY -->
-    <section id="friendsPlay" class="screen">
+<!-- =========================
+     FRIEND PLAY
+========================= -->
 
-        <div class="topbar">
-            <div class="top-title">PLAY WITH FRIENDS</div>
-            <button class="back-btn" onclick="showScreen('play')">BACK</button>
+<section id="friendsPlay" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            PLAY WITH FRIENDS
         </div>
 
-        <div class="panel">
+        <button class="back-btn" onclick="showScreen('play')">
+            BACK
+        </button>
 
-            <div class="option-grid">
+    </div>
 
-                <button class="option" onclick="showScreen('createParty')">
-                    <div class="option-title">CREATE PARTY</div>
-                    <div class="option-desc">
-                        Create a private party and invite your friends.
-                    </div>
-                </button>
+    <div class="panel">
 
-                <button class="option" onclick="showScreen('joinParty')">
-                    <div class="option-title">JOIN PARTY</div>
-                    <div class="option-desc">
-                        Enter a party code to join your friends.
-                    </div>
-                </button>
+        <div class="option-grid">
 
-            </div>
+            <button class="option" onclick="showScreen('createParty')">
 
-        </div>
-    </section>
-
-
-    <!-- CREATE PARTY -->
-    <section id="createParty" class="screen">
-
-        <div class="topbar">
-            <div class="top-title">CREATE PARTY</div>
-            <button class="back-btn" onclick="showScreen('friendsPlay')">BACK</button>
-        </div>
-
-        <div class="panel">
-
-            <h2>Your private party</h2>
-            <p>Share this code with your friends.</p>
-
-            <div class="party-code">
-
-                <small>PARTY CODE</small>
-
-                <div id="partyCode" class="code">------</div>
-
-                <button class="copy-btn" onclick="copyPartyCode()">
-                    COPY CODE
-                </button>
-
-            </div>
-
-            <button class="create-btn" onclick="createParty()">
-                CREATE NEW PARTY
-            </button>
-
-            <button class="create-btn" style="margin-top:10px;background:#222;color:white;"
-                onclick="startPartyGame()">
-                START GAME
-            </button>
-
-        </div>
-    </section>
-
-
-    <!-- JOIN PARTY -->
-    <section id="joinParty" class="screen">
-
-        <div class="topbar">
-            <div class="top-title">JOIN PARTY</div>
-            <button class="back-btn" onclick="showScreen('friendsPlay')">BACK</button>
-        </div>
-
-        <div class="panel">
-
-            <h2>Enter party code</h2>
-            <p>Ask the party host for their private code.</p>
-
-            <div class="form-group">
-                <label>Party code</label>
-                <input
-                    id="joinCode"
-                    class="text-input"
-                    maxlength="6"
-                    placeholder="ABC123"
-                    oninput="this.value=this.value.toUpperCase()"
-                >
-            </div>
-
-            <button class="create-btn" onclick="joinParty()">
-                JOIN PARTY
-            </button>
-
-        </div>
-    </section>
-
-
-    <!-- FRIENDS -->
-    <section id="friends" class="screen">
-
-        <div class="topbar">
-            <div class="top-title">FRIENDS</div>
-            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
-        </div>
-
-        <div class="panel">
-
-            <h2>Your Friends</h2>
-            <p>Add friends and see who is online.</p>
-
-            <div class="form-group">
-                <label>Friend name</label>
-                <input
-                    id="friendName"
-                    class="text-input"
-                    placeholder="Enter username"
-                >
-            </div>
-
-            <button class="create-btn" onclick="addFriend()">
-                ADD FRIEND
-            </button>
-
-            <br><br>
-
-            <div id="friendList" class="friend-list"></div>
-
-        </div>
-    </section>
-
-
-    <!-- NOTIFICATIONS -->
-    <section id="notifications" class="screen">
-
-        <div class="topbar">
-            <div class="top-title">NOTIFICATIONS</div>
-            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
-        </div>
-
-        <div class="panel">
-
-            <h2>Notifications</h2>
-            <p>Important activity will appear here.</p>
-
-            <div id="notificationList"></div>
-
-        </div>
-    </section>
-
-
-    <!-- SETTINGS -->
-    <section id="settings" class="screen">
-
-        <div class="topbar">
-            <div class="top-title">SETTINGS</div>
-            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
-        </div>
-
-        <div class="panel">
-
-            <h2>Settings</h2>
-            <p>Customize your BE RICH experience.</p>
-
-            <button class="option" style="width:100%;min-height:90px;">
-                <div class="option-title">GRAPHICS</div>
-                <div class="option-desc">
-                    Graphics settings will be added later.
+                <div class="option-title">
+                    CREATE PARTY
                 </div>
-            </button>
 
-            <br><br>
-
-            <button class="option" style="width:100%;min-height:90px;">
-                <div class="option-title">AUDIO</div>
                 <div class="option-desc">
-                    Music and sound settings will be added later.
+                    Create a private party and invite your friends.
                 </div>
+
+            </button>
+
+
+            <button class="option" onclick="showScreen('joinParty')">
+
+                <div class="option-title">
+                    JOIN PARTY
+                </div>
+
+                <div class="option-desc">
+                    Enter a party code to join your friends.
+                </div>
+
             </button>
 
         </div>
-    </section>
+
+    </div>
+
+</section>
 
 
-    <!-- CREDITS -->
-    <section id="credits" class="screen">
+<!-- =========================
+     CREATE PARTY
+========================= -->
 
-        <div class="topbar">
-            <div class="top-title">CREDITS</div>
-            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+<section id="createParty" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            CREATE PARTY
         </div>
 
-        <div class="panel">
+        <button class="back-btn" onclick="showScreen('friendsPlay')">
+            BACK
+        </button>
 
-            <h2>BE RICH</h2>
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Your private party
+        </h2>
+
+        <p>
+            Share this code with your friends.
+        </p>
+
+        <div class="party-code">
+
+            <small>
+                PARTY CODE
+            </small>
+
+            <div id="partyCode" class="code">
+                ------
+            </div>
+
+            <button class="copy-btn" onclick="copyPartyCode()">
+                COPY CODE
+            </button>
+
+        </div>
+
+        <button class="create-btn" onclick="createParty()">
+            CREATE NEW PARTY
+        </button>
+
+        <button
+            class="create-btn"
+            style="margin-top:10px;background:#222;color:white;"
+            onclick="startPartyGame()"
+        >
+            START GAME
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     JOIN PARTY
+========================= -->
+
+<section id="joinParty" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            JOIN PARTY
+        </div>
+
+        <button class="back-btn" onclick="showScreen('friendsPlay')">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Enter party code
+        </h2>
+
+        <p>
+            Ask the party host for their private code.
+        </p>
+
+        <div class="form-group">
+
+            <label>
+                Party code
+            </label>
+
+            <input
+                id="joinCode"
+                class="text-input"
+                maxlength="6"
+                placeholder="ABC123"
+                oninput="this.value=this.value.toUpperCase()"
+            >
+
+        </div>
+
+        <button class="create-btn" onclick="joinParty()">
+            JOIN PARTY
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FRIENDS
+========================= -->
+
+<section id="friends" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            FRIENDS
+        </div>
+
+        <button class="back-btn" onclick="showScreen('menu')">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Your Friends
+        </h2>
+
+        <p>
+            Add friends and see who is online.
+        </p>
+
+        <div class="form-group">
+
+            <label>
+                Friend name
+            </label>
+
+            <input
+                id="friendName"
+                class="text-input"
+                placeholder="Enter username"
+            >
+
+        </div>
+
+        <button class="create-btn" onclick="addFriend()">
+            ADD FRIEND
+        </button>
+
+        <br><br>
+
+        <div id="friendList" class="friend-list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     NOTIFICATIONS
+========================= -->
+
+<section id="notifications" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            NOTIFICATIONS
+        </div>
+
+        <button class="back-btn" onclick="showScreen('menu')">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Notifications
+        </h2>
+
+        <p>
+            Important activity will appear here.
+        </p>
+
+        <div id="notificationList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<section id="settings" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            SETTINGS
+        </div>
+
+        <button class="back-btn" onclick="showScreen('menu')">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Settings
+        </h2>
+
+        <p>
+            Customize your BE RICH experience.
+        </p>
+
+
+        <button
+            class="option"
+            style="width:100%;min-height:90px;"
+            onclick="changeName()"
+        >
+
+            <div class="option-title">
+                CHANGE NAME
+            </div>
+
+            <div class="option-desc">
+                Change the name other players see.
+            </div>
+
+        </button>
+
+        <br><br>
+
+
+        <button
+            class="option"
+            style="width:100%;min-height:90px;"
+        >
+
+            <div class="option-title">
+                GRAPHICS
+            </div>
+
+            <div class="option-desc">
+                Graphics settings will be added later.
+            </div>
+
+        </button>
+
+        <br><br>
+
+
+        <button
+            class="option"
+            style="width:100%;min-height:90px;"
+        >
+
+            <div class="option-title">
+                AUDIO
+            </div>
+
+            <div class="option-desc">
+                Music and sound settings will be added later.
+            </div>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CREDITS
+========================= -->
+
+<section id="credits" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            CREDITS
+        </div>
+
+        <button class="back-btn" onclick="showScreen('menu')">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            BE RICH
+        </h2>
+
+        <p>
+            A browser game about starting with nothing
+            and becoming rich.
+        </p>
+
+        <p>
+            More features are coming.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GAME
+========================= -->
+
+<section id="game" class="game">
+
+    <div class="game-ui">
+
+        <div class="money">
+            MONEY:
+            <span id="money">
+                $100
+            </span>
+        </div>
+
+
+        <div class="player-display">
+            PLAYER:
+            <span id="playerNameDisplay">
+                Player
+            </span>
+        </div>
+
+
+        <div class="objective">
+
+            <small>
+                CURRENT OBJECTIVE
+            </small>
+
+            <br>
+
+            Get rich.
+
+        </div>
+
+
+        <div class="camping-car"></div>
+
+
+        <div class="game-text">
+
+            <h1>
+                Welcome to BE RICH
+            </h1>
 
             <p>
-                A browser game about starting with nothing
-                and becoming rich.
-            </p>
-
-            <p>
-                More features are coming.
+                You start with an old camping car and $100.
             </p>
 
         </div>
-    </section>
 
+    </div>
 
-    <!-- GAME -->
-    <section id="game" class="game">
-
-        <div class="game-ui">
-
-            <div class="money">
-                MONEY: <span id="money">$100</span>
-            </div>
-
-            <div class="objective">
-                <small>CURRENT OBJECTIVE</small><br>
-                Get rich.
-            </div>
-
-            <div class="camping-car"></div>
-
-            <div class="game-text">
-                <h1>Welcome to BE RICH</h1>
-                <p>You start with an old camping car and $100.</p>
-            </div>
-
-        </div>
-
-    </section>
+</section>
 
 </div>
 
@@ -822,10 +1098,13 @@ function showScreen(id) {
     });
 
     document.querySelector(".menu").style.display = "none";
+
     document.getElementById("game").classList.remove("active");
 
     if (id === "menu") {
+
         document.querySelector(".menu").style.display = "flex";
+
         return;
     }
 
@@ -842,10 +1121,109 @@ function showScreen(id) {
 
 
 /* =========================
+   PLAY / PLAYER NAME
+========================= */
+
+function openPlay() {
+
+    const savedName =
+        localStorage.getItem("beRichPlayerName");
+
+    showScreen("play");
+
+    if (!savedName) {
+
+        document.getElementById("nameBox").style.display = "block";
+
+        document.getElementById("playOptions").style.display = "none";
+
+    } else {
+
+        document.getElementById("nameBox").style.display = "none";
+
+        document.getElementById("playOptions").style.display = "block";
+    }
+}
+
+
+function savePlayerName() {
+
+    const input =
+        document.getElementById("playerNameInput");
+
+    const name =
+        input.value.trim();
+
+    if (!name) {
+
+        alert("Enter your name.");
+
+        return;
+    }
+
+    localStorage.setItem(
+        "beRichPlayerName",
+        name
+    );
+
+    input.value = "";
+
+    document.getElementById("nameBox").style.display = "none";
+
+    document.getElementById("playOptions").style.display = "block";
+}
+
+
+function changeName() {
+
+    const currentName =
+        localStorage.getItem("beRichPlayerName") || "";
+
+    const newName =
+        prompt("Enter your new name:", currentName);
+
+    if (newName === null) {
+        return;
+    }
+
+    const name =
+        newName.trim();
+
+    if (!name) {
+
+        alert("Enter a valid name.");
+
+        return;
+    }
+
+    localStorage.setItem(
+        "beRichPlayerName",
+        name
+    );
+
+    alert("Name changed!");
+}
+
+
+/* =========================
    GAME
 ========================= */
 
 function startSolo() {
+
+    const savedName =
+        localStorage.getItem("beRichPlayerName");
+
+    if (!savedName) {
+
+        openPlay();
+
+        return;
+    }
+
+    document.getElementById("playerNameDisplay").textContent =
+        savedName;
+
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
@@ -855,8 +1233,11 @@ function startSolo() {
     document.getElementById("game").classList.add("active");
 }
 
+
 function startPartyGame() {
+
     startSolo();
+
 }
 
 
@@ -866,50 +1247,73 @@ function startPartyGame() {
 
 function generatePartyCode() {
 
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
     let code = "";
 
     for (let i = 0; i < 6; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
+
+        code +=
+            chars[Math.floor(Math.random() * chars.length)];
     }
 
     return code;
 }
 
+
 function createParty() {
 
-    const code = generatePartyCode();
+    const code =
+        generatePartyCode();
 
-    localStorage.setItem("beRichParty", code);
+    localStorage.setItem(
+        "beRichParty",
+        code
+    );
 
-    document.getElementById("partyCode").textContent = code;
+    document.getElementById("partyCode").textContent =
+        code;
 }
+
 
 function copyPartyCode() {
 
-    const code = document.getElementById("partyCode").textContent;
+    const code =
+        document.getElementById("partyCode").textContent;
 
     if (code === "------") {
+
         alert("Create a party first.");
+
         return;
     }
 
     navigator.clipboard.writeText(code)
+
         .then(() => {
+
             alert("Party code copied!");
+
         })
+
         .catch(() => {
+
             alert("Your party code is: " + code);
+
         });
 }
 
+
 function joinParty() {
 
-    const code = document.getElementById("joinCode").value.trim();
+    const code =
+        document.getElementById("joinCode").value.trim();
 
     if (code.length !== 6) {
+
         alert("Enter a valid 6-character party code.");
+
         return;
     }
 
@@ -930,6 +1334,7 @@ function getFriends() {
     );
 }
 
+
 function saveFriends(friends) {
 
     localStorage.setItem(
@@ -938,31 +1343,46 @@ function saveFriends(friends) {
     );
 }
 
+
 function addFriend() {
 
-    const input = document.getElementById("friendName");
+    const input =
+        document.getElementById("friendName");
 
-    const name = input.value.trim();
+    const name =
+        input.value.trim();
 
     if (!name) {
+
         alert("Enter a username.");
+
         return;
     }
 
-    let friends = getFriends();
+    let friends =
+        getFriends();
 
     if (
         friends.some(
-            friend => friend.name.toLowerCase() === name.toLowerCase()
+            friend =>
+                friend.name.toLowerCase() ===
+                name.toLowerCase()
         )
     ) {
-        alert("This player is already on your friends list.");
+
+        alert(
+            "This player is already on your friends list."
+        );
+
         return;
     }
 
     friends.push({
+
         name: name,
+
         online: false
+
     });
 
     saveFriends(friends);
@@ -979,11 +1399,14 @@ function addFriend() {
     alert("Friend request sent!");
 }
 
+
 function loadFriends() {
 
-    const container = document.getElementById("friendList");
+    const container =
+        document.getElementById("friendList");
 
-    const friends = getFriends();
+    const friends =
+        getFriends();
 
     container.innerHTML = "";
 
@@ -991,7 +1414,9 @@ function loadFriends() {
 
         container.innerHTML = `
             <div class="friend">
-                <span class="offline">No friends yet.</span>
+                <span class="offline">
+                    No friends yet.
+                </span>
             </div>
         `;
 
@@ -1000,32 +1425,46 @@ function loadFriends() {
 
     friends.forEach((friend, index) => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "friend";
 
         div.innerHTML = `
+
             <div>
-                <div class="friend-name">${escapeHTML(friend.name)}</div>
-                <div class="${friend.online ? "online" : "offline"}">
-                    ${friend.online ? "ONLINE" : "OFFLINE"}
+
+                <div class="friend-name">
+                    ${escapeHTML(friend.name)}
                 </div>
+
+                <div class="${friend.online ? "online" : "offline"}">
+
+                    ${friend.online ? "ONLINE" : "OFFLINE"}
+
+                </div>
+
             </div>
 
             <button
                 class="delete-friend"
-                onclick="removeFriend(${index})">
+                onclick="removeFriend(${index})"
+            >
                 REMOVE
             </button>
+
         `;
 
         container.appendChild(div);
+
     });
 }
 
+
 function removeFriend(index) {
 
-    let friends = getFriends();
+    let friends =
+        getFriends();
 
     friends.splice(index, 1);
 
@@ -1046,14 +1485,20 @@ function getNotifications() {
     );
 }
 
+
 function addNotification(title, message) {
 
-    let notifications = getNotifications();
+    let notifications =
+        getNotifications();
 
     notifications.unshift({
+
         title: title,
+
         message: message,
+
         time: new Date().toLocaleString()
+
     });
 
     localStorage.setItem(
@@ -1062,22 +1507,33 @@ function addNotification(title, message) {
     );
 }
 
+
 function loadNotifications() {
 
     const container =
         document.getElementById("notificationList");
 
-    const notifications = getNotifications();
+    const notifications =
+        getNotifications();
 
     container.innerHTML = "";
 
     if (notifications.length === 0) {
 
         container.innerHTML = `
+
             <div class="notification">
-                <strong>No notifications</strong>
-                <span>You're all caught up.</span>
+
+                <strong>
+                    No notifications
+                </strong>
+
+                <span>
+                    You're all caught up.
+                </span>
+
             </div>
+
         `;
 
         return;
@@ -1085,29 +1541,40 @@ function loadNotifications() {
 
     notifications.forEach(notification => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "notification";
 
         div.innerHTML = `
-            <strong>${escapeHTML(notification.title)}</strong>
-            <span>${escapeHTML(notification.message)}</span>
+
+            <strong>
+                ${escapeHTML(notification.title)}
+            </strong>
+
+            <span>
+                ${escapeHTML(notification.message)}
+            </span>
+
         `;
 
         container.appendChild(div);
+
     });
 }
 
 
 /* =========================
-   SECURITY / TEXT
+   SECURITY
 ========================= */
 
 function escapeHTML(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
-    div.textContent = text;
+    div.textContent =
+        text;
 
     return div.innerHTML;
 }
@@ -1119,18 +1586,22 @@ function escapeHTML(text) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelector(".menu").style.display = "flex";
+    document.querySelector(".menu").style.display =
+        "flex";
 
     loadFriends();
+
     loadNotifications();
 
     const savedParty =
         localStorage.getItem("beRichParty");
 
     if (savedParty) {
+
         document.getElementById("partyCode").textContent =
             savedParty;
     }
+
 });
 
 </script>
