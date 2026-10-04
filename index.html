@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,192 +8,73 @@
 <style>
 * {
     box-sizing: border-box;
-}
-
-:root {
-    --bg: #07090d;
-    --panel: rgba(15, 18, 25, 0.88);
-    --panel2: rgba(25, 29, 38, 0.92);
-    --white: #f5f7fa;
-    --muted: #aab2c0;
-    --accent: #62ff9b;
-    --accent2: #37c9ff;
-    --danger: #ff4f5e;
-}
-
-html,
-body {
-    width: 100%;
-    height: 100%;
     margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #07090d;
-    color: var(--white);
-    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 20%, #202020 0%, #090909 45%, #020202 100%);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* =========================================================
-   GENERAL
-========================================================= */
-
-.hidden {
-    display: none !important;
-}
-
-.screen {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-/* =========================================================
-   ANIMATED BACKGROUND
-========================================================= */
-
-.background {
+body::before {
+    content: "";
     position: fixed;
     inset: 0;
-    overflow: hidden;
     background:
-        radial-gradient(circle at 50% 35%, #263447 0%, #10151d 38%, #06080c 80%);
-    z-index: -10;
-}
-
-.background::before {
-    content: "";
-    position: absolute;
-    width: 900px;
-    height: 900px;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    background:
-        radial-gradient(circle, rgba(98,255,155,0.12), transparent 58%);
-    filter: blur(30px);
-    animation: pulse 5s ease-in-out infinite;
-}
-
-.background::after {
-    content: "";
-    position: absolute;
-    inset: -100px;
-    background:
-        linear-gradient(
-            120deg,
-            transparent 0%,
-            rgba(255,255,255,0.025) 45%,
-            transparent 50%
-        );
-    transform: translateX(-60%);
-    animation: shine 8s linear infinite;
-}
-
-@keyframes pulse {
-    0%,100% {
-        transform: translate(-50%, -50%) scale(0.9);
-        opacity: 0.5;
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(1.15);
-        opacity: 1;
-    }
-}
-
-@keyframes shine {
-    to {
-        transform: translateX(60%);
-    }
-}
-
-/* floating dots */
-
-.dots {
-    position: absolute;
-    inset: 0;
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.025) 50%, transparent 100%);
     pointer-events: none;
 }
 
-.dot {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: white;
-    opacity: 0.25;
-    animation: floatDot linear infinite;
+button,
+input {
+    font-family: inherit;
 }
 
-.dot:nth-child(1) { left: 8%; top: 20%; animation-duration: 8s; }
-.dot:nth-child(2) { left: 18%; top: 70%; animation-duration: 11s; }
-.dot:nth-child(3) { left: 32%; top: 35%; animation-duration: 9s; }
-.dot:nth-child(4) { left: 48%; top: 80%; animation-duration: 12s; }
-.dot:nth-child(5) { left: 61%; top: 24%; animation-duration: 10s; }
-.dot:nth-child(6) { left: 75%; top: 62%; animation-duration: 8s; }
-.dot:nth-child(7) { left: 88%; top: 30%; animation-duration: 13s; }
-.dot:nth-child(8) { left: 93%; top: 82%; animation-duration: 9s; }
-
-@keyframes floatDot {
-    0% {
-        transform: translateY(0);
-        opacity: 0.15;
-    }
-
-    50% {
-        transform: translateY(-35px);
-        opacity: 0.5;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 0.15;
-    }
+button {
+    cursor: pointer;
 }
 
-/* =========================================================
-   MAIN MENU
-========================================================= */
+/* MAIN */
 
-#menu {
+#app {
+    min-height: 100vh;
+}
+
+/* MENU */
+
+.menu {
+    min-height: 100vh;
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 30px;
 }
 
 .logo {
-    font-size: clamp(58px, 9vw, 110px);
+    font-size: clamp(60px, 10vw, 125px);
     font-weight: 1000;
-    letter-spacing: 8px;
-    margin-bottom: 10px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ffffff 0%,
-            #c8d2dc 42%,
-            #62ff9b 100%
-        );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-
-    filter:
-        drop-shadow(0 8px 20px rgba(0,0,0,0.8));
-
+    letter-spacing: -7px;
+    line-height: .85;
+    text-align: center;
+    color: #fff;
+    text-shadow:
+        0 0 10px rgba(255,255,255,.15),
+        0 0 40px rgba(255,255,255,.08);
     animation: logoFloat 4s ease-in-out infinite;
 }
 
 .subtitle {
-    color: #9ea9b8;
+    margin-top: 18px;
+    color: #777;
     letter-spacing: 5px;
-    font-size: 14px;
-    margin-bottom: 45px;
+    font-size: 13px;
     text-transform: uppercase;
 }
 
@@ -201,722 +82,416 @@ body {
     0%,100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-6px);
     }
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.menu-button {
-    width: 330px;
-    max-width: 85vw;
-    padding: 17px 22px;
-    margin: 6px;
-
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(44,50,62,0.95),
-            rgba(20,24,31,0.95)
-        );
-
-    color: white;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,0.35),
-        inset 0 1px rgba(255,255,255,0.06);
-
-    transition:
-        transform 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s,
-        background 0.15s;
+.main-buttons {
+    width: min(390px, 90vw);
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
 }
 
-.menu-button:hover {
-    transform: translateY(-3px) scale(1.02);
-
-    border-color: rgba(98,255,155,0.45);
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,0.5),
-        0 0 25px rgba(98,255,155,0.08);
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(53,63,76,1),
-            rgba(23,29,37,1)
-        );
-}
-
-.menu-button:active {
-    transform: translateY(1px);
-}
-
-/* =========================================================
-   PANELS
-========================================================= */
-
-.panel {
-    width: 560px;
-    max-width: 92vw;
-    max-height: 90vh;
-    overflow-y: auto;
-
-    padding: 34px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(31,37,48,0.95),
-            rgba(10,13,18,0.95)
-        );
-
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 22px;
-
-    text-align: center;
-
-    box-shadow:
-        0 30px 90px rgba(0,0,0,0.65),
-        inset 0 1px rgba(255,255,255,0.06);
-
-    backdrop-filter: blur(14px);
-}
-
-.panel h2 {
-    margin-top: 0;
-    margin-bottom: 28px;
-    font-size: 34px;
-}
-
-.panel-title-small {
-    color: var(--muted);
-    margin-bottom: 20px;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 15px;
-
-    margin: 8px 0 20px;
-
-    border: 1px solid #3b4350;
+.main-btn {
+    height: 62px;
+    border: 1px solid #333;
     border-radius: 10px;
-
-    background: #090c11;
+    background: linear-gradient(180deg, #191919, #101010);
     color: white;
-
     font-size: 17px;
-    outline: none;
+    font-weight: 800;
+    letter-spacing: 2px;
+    transition: .2s;
+    box-shadow: 0 8px 25px rgba(0,0,0,.35);
 }
 
-input:focus,
-select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(98,255,155,0.08);
+.main-btn:hover {
+    transform: translateY(-3px);
+    border-color: #666;
+    background: linear-gradient(180deg, #242424, #141414);
+    box-shadow: 0 12px 35px rgba(0,0,0,.5);
 }
 
-label {
+.main-btn.primary {
+    background: white;
+    color: black;
+    border-color: white;
+}
+
+.main-btn.primary:hover {
+    background: #ddd;
+}
+
+.version {
+    position: absolute;
+    bottom: 20px;
+    left: 25px;
+    color: #444;
+    font-size: 12px;
+}
+
+/* SCREEN */
+
+.screen {
+    min-height: 100vh;
+    padding: 30px;
+    display: none;
+}
+
+.screen.active {
     display: block;
-    text-align: left;
-    color: #aeb8c6;
-    font-size: 13px;
-    font-weight: bold;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    margin-bottom: 35px;
+}
+
+.top-title {
+    font-size: 32px;
+    font-weight: 900;
     letter-spacing: 1px;
 }
 
-/* =========================================================
-   SAVES
-========================================================= */
+.back-btn {
+    background: #151515;
+    border: 1px solid #333;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
 
-.saves-list {
+.back-btn:hover {
+    background: #222;
+}
+
+/* PANELS */
+
+.panel {
+    max-width: 850px;
+    margin: auto;
+    background: rgba(15,15,15,.92);
+    border: 1px solid #2d2d2d;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+
+.panel h2 {
+    margin-bottom: 10px;
+}
+
+.panel p {
+    color: #888;
+    margin-bottom: 25px;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.option {
+    min-height: 130px;
+    border: 1px solid #333;
+    background: #111;
+    border-radius: 12px;
+    color: white;
+    padding: 22px;
+    text-align: left;
+    transition: .2s;
+}
+
+.option:hover {
+    transform: translateY(-3px);
+    border-color: #777;
+    background: #191919;
+}
+
+.option-title {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.option-desc {
+    color: #777;
+    line-height: 1.4;
+}
+
+/* FORMS */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #aaa;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.text-input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #080808;
+    color: white;
+    padding: 0 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.text-input:focus {
+    border-color: #777;
+}
+
+.create-btn {
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-radius: 8px;
+    background: white;
+    color: black;
+    font-weight: 900;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+.create-btn:hover {
+    background: #ddd;
+}
+
+/* PARTY */
+
+.party-code {
+    text-align: center;
+    margin: 25px 0;
+    padding: 25px;
+    border: 1px dashed #555;
+    border-radius: 12px;
+    background: #090909;
+}
+
+.party-code small {
+    color: #777;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.code {
+    font-size: 42px;
+    font-weight: 1000;
+    letter-spacing: 8px;
+}
+
+.copy-btn {
+    margin-top: 18px;
+    background: #202020;
+    border: 1px solid #444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+/* FRIENDS */
+
+.friend-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 22px;
+    gap: 10px;
 }
 
-.save {
-    position: relative;
-
-    padding: 18px;
-
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(44,50,62,0.95),
-            rgba(20,24,31,0.95)
-        );
-
-    border: 1px solid rgba(255,255,255,0.07);
-
-    text-align: left;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,0.3);
-
-    transition: transform 0.15s, border-color 0.15s;
-}
-
-.save:hover {
-    transform: translateY(-2px);
-    border-color: rgba(98,255,155,0.25);
-}
-
-.save-name {
-    font-size: 21px;
-    font-weight: 800;
-    margin-bottom: 7px;
-}
-
-.save-info {
-    color: #aab3c0;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.save-actions {
+.friend {
     display: flex;
-    gap: 8px;
-    margin-top: 13px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    background: #0c0c0c;
 }
 
-.small-button {
-    padding: 9px 14px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
+.friend-name {
     font-weight: bold;
-    background: #303846;
 }
 
-.small-button:hover {
-    background: #455064;
+.online {
+    color: #63e36b;
+    font-size: 12px;
 }
 
-.delete-button {
-    background: #8e2733;
+.offline {
+    color: #666;
+    font-size: 12px;
 }
 
-.delete-button:hover {
-    background: #b93342;
-}
-
-.no-saves {
-    padding: 30px 10px;
-    color: #7f8998;
-}
-
-.save-count {
-    color: #778294;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-/* =========================================================
-   GAME WORLD
-========================================================= */
-
-#game {
-    display: none;
-    background: #071016;
-}
-
-.game-world {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            #15293c 0%,
-            #29495a 42%,
-            #536c48 43%,
-            #34462f 100%
-        );
-}
-
-/* moon/sun */
-
-.sky-light {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    right: 11%;
-    top: 10%;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fff6c9 0%,
-            #dbe7c8 45%,
-            rgba(255,255,255,0) 72%
-        );
-
-    filter: blur(1px);
-}
-
-/* mountains */
-
-.mountain {
-    position: absolute;
-    bottom: 36%;
-    width: 0;
-    height: 0;
-    border-left: 180px solid transparent;
-    border-right: 180px solid transparent;
-    border-bottom: 260px solid #253b38;
-    opacity: 0.9;
-}
-
-.mountain.one {
-    left: -40px;
-}
-
-.mountain.two {
-    left: 25%;
-    transform: scale(1.25);
-    border-bottom-color: #203430;
-}
-
-.mountain.three {
-    right: -70px;
-    transform: scale(1.1);
-    border-bottom-color: #29403a;
-}
-
-/* ground */
-
-.world-ground {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 43%;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            #63794f 0%,
-            #415439 45%,
-            #263528 100%
-        );
-}
-
-/* road */
-
-.road {
-    position: absolute;
-    width: 100%;
-    height: 110px;
-    bottom: 9%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #343b3d,
-            #242a2c
-        );
-
-    box-shadow:
-        inset 0 8px 0 rgba(255,255,255,0.04),
-        inset 0 -8px 0 rgba(0,0,0,0.2);
-}
-
-.road-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 49px;
-    height: 6px;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #c7b86b 0 55px,
-            transparent 55px 105px
-        );
-
-    opacity: 0.55;
-}
-
-/* =========================================================
-   CAMPER
-========================================================= */
-
-.camper-shadow {
-    position: absolute;
-    width: 600px;
-    height: 80px;
-    left: 50%;
-    bottom: 22%;
-    transform: translateX(-50%);
-
-    background: rgba(0,0,0,0.35);
-    filter: blur(15px);
-    border-radius: 50%;
-}
-
-.camper {
-    position: absolute;
-
-    width: 540px;
-    height: 285px;
-
-    left: 50%;
-    bottom: 25%;
-
-    transform: translateX(-50%);
-
-    background:
-        linear-gradient(
-            180deg,
-            #eee9dc 0%,
-            #d0c8b8 55%,
-            #aaa28f 100%
-        );
-
-    border: 8px solid #252a2c;
-
-    border-radius: 42px 42px 18px 18px;
-
-    box-shadow:
-        0 22px 45px rgba(0,0,0,0.45),
-        inset 0 2px rgba(255,255,255,0.6);
-}
-
-.camper-roof {
-    position: absolute;
-    left: 25px;
-    top: -28px;
-
-    width: 465px;
-    height: 32px;
-
-    background: #20262a;
-    border-radius: 20px;
-
-    box-shadow: 0 5px 12px rgba(0,0,0,0.35);
-}
-
-.camper-stripe {
-    position: absolute;
-    left: 0;
-    top: 145px;
-    width: 100%;
-    height: 32px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #263b4d,
-            #456c82,
-            #263b4d
-        );
-}
-
-.window {
-    position: absolute;
-    top: 43px;
-
-    width: 115px;
-    height: 88px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #162e3c,
-            #3d7288
-        );
-
-    border: 6px solid #20282c;
-    border-radius: 13px;
-
-    box-shadow:
-        inset 0 0 20px rgba(255,255,255,0.08);
-}
-
-.window.left {
-    left: 42px;
-}
-
-.window.right {
-    right: 42px;
-}
-
-.door {
-    position: absolute;
-
-    right: 165px;
-    bottom: 0;
-
-    width: 105px;
-    height: 185px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #aaa594,
-            #c9c4b4,
-            #aaa594
-        );
-
-    border: 6px solid #292e30;
-    border-bottom: 0;
-
-    border-radius: 12px 12px 0 0;
-}
-
-.door-window {
-    position: absolute;
-    width: 65px;
-    height: 60px;
-    left: 14px;
-    top: 15px;
-    background: #31596a;
-    border: 4px solid #262c30;
-    border-radius: 7px;
-}
-
-.door-handle {
-    position: absolute;
-    right: 12px;
-    top: 92px;
-
-    width: 13px;
-    height: 13px;
-
-    background: #1c2022;
-    border-radius: 50%;
-}
-
-.wheel {
-    position: absolute;
-
-    bottom: -45px;
-
-    width: 82px;
-    height: 82px;
-
-    background: #111518;
-
-    border: 11px solid #292e32;
-
-    border-radius: 50%;
-
-    box-shadow:
-        inset 0 0 0 7px #080a0b;
-}
-
-.wheel.left {
-    left: 70px;
-}
-
-.wheel.right {
-    right: 70px;
-}
-
-/* =========================================================
-   PLAYER
-========================================================= */
-
-.player {
-    position: absolute;
-
-    left: 50%;
-    bottom: 28%;
-
-    transform: translateX(-50%);
-
-    width: 65px;
-    height: 115px;
-
-    z-index: 15;
-
-    transition: left 0.08s, bottom 0.08s;
-}
-
-.player-head {
-    width: 52px;
-    height: 52px;
-
-    margin: auto;
-
-    background: #e5b28d;
-
-    border: 4px solid #222;
-
-    border-radius: 50%;
-
-    box-shadow:
-        0 5px 10px rgba(0,0,0,0.35);
-}
-
-.player-body {
-    width: 46px;
-    height: 56px;
-
-    margin: -1px auto 0;
-
-    background:
-        linear-gradient(
-            180deg,
-            #486f9b,
-            #2c4c70
-        );
-
-    border: 4px solid #222;
-
-    border-radius: 12px 12px 8px 8px;
-}
-
-.player-name {
-    position: absolute;
-
-    top: -32px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    white-space: nowrap;
-
-    padding: 5px 9px;
-
+.delete-friend {
+    background: #181818;
+    border: 1px solid #333;
+    color: #aaa;
+    padding: 7px 10px;
     border-radius: 6px;
+}
 
-    background: rgba(0,0,0,0.65);
+/* NOTIFICATIONS */
 
+.notification {
+    border: 1px solid #292929;
+    padding: 16px;
+    border-radius: 9px;
+    background: #0c0c0c;
+    margin-bottom: 10px;
+}
+
+.notification strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.notification span {
+    color: #777;
     font-size: 13px;
-    font-weight: bold;
 }
 
-/* =========================================================
-   HUD
-========================================================= */
+/* GAME */
 
-#hud {
-    position: absolute;
-
-    top: 22px;
-    left: 22px;
-
-    z-index: 50;
-
-    padding: 13px 19px;
-
-    border-radius: 12px;
-
-    background: rgba(4,7,10,0.78);
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.35);
-
-    font-size: 24px;
-    font-weight: bold;
+.game {
+    min-height: 100vh;
+    display: none;
+    background:
+        radial-gradient(circle at 50% 35%, #333 0%, #151515 35%, #050505 80%);
 }
 
-#serverHud {
+.game.active {
+    display: block;
+}
+
+.game-ui {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.money {
     position: absolute;
-
-    top: 22px;
-    right: 22px;
-
-    z-index: 50;
-
-    padding: 11px 15px;
-
+    top: 25px;
+    left: 25px;
+    background: rgba(0,0,0,.7);
+    border: 1px solid #444;
     border-radius: 10px;
-
-    background: rgba(4,7,10,0.7);
-
-    color: #b9c2ce;
-
-    font-size: 14px;
+    padding: 12px 18px;
+    font-weight: 900;
 }
 
-/* =========================================================
-   GAME BUTTON
-========================================================= */
+.money span {
+    color: #65e26e;
+}
 
-.exit-button {
+.objective {
     position: absolute;
-
+    top: 25px;
     right: 25px;
-    bottom: 25px;
-
-    z-index: 60;
-
-    padding: 14px 23px;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
+    background: rgba(0,0,0,.7);
+    border: 1px solid #444;
     border-radius: 10px;
-
-    background: rgba(16,20,25,0.9);
-
-    color: white;
-
-    font-size: 17px;
-    font-weight: bold;
-
-    cursor: pointer;
+    padding: 14px 18px;
+    text-align: right;
 }
 
-.exit-button:hover {
-    background: #2d3640;
+.objective small {
+    color: #777;
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+.camping-car {
+    position: absolute;
+    width: 330px;
+    height: 170px;
+    background: #6c6c68;
+    border-radius: 22px 28px 10px 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
 
-@media (max-width: 700px) {
+.camping-car::before {
+    content: "";
+    position: absolute;
+    width: 115px;
+    height: 60px;
+    background: #222;
+    right: 28px;
+    top: 28px;
+    border-radius: 8px;
+    border: 3px solid #444;
+}
 
-    .logo {
-        letter-spacing: 4px;
+.camping-car::after {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: #111;
+    border-radius: 50%;
+    left: 35px;
+    bottom: -27px;
+    box-shadow: 205px 0 0 #111;
+}
+
+.game-text {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 130px);
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.game-text h1 {
+    font-size: 28px;
+}
+
+.game-text p {
+    color: #888;
+    margin-top: 8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:650px) {
+    .option-grid {
+        grid-template-columns: 1fr;
     }
 
     .panel {
-        padding: 22px;
+        padding: 20px;
     }
 
-    .camper {
-        transform: translateX(-50%) scale(0.65);
-        transform-origin: bottom center;
+    .top-title {
+        font-size: 25px;
     }
 
-    .camper-shadow {
-        transform: translateX(-50%) scale(0.65);
+    .code {
+        font-size: 31px;
     }
 
-    .player {
-        transform: translateX(-50%) scale(0.8);
-    }
-
-    #hud {
-        font-size: 18px;
+    .camping-car {
+        transform: translate(-50%, -50%) scale(.75);
     }
 }
 </style>
@@ -924,883 +499,639 @@ label {
 
 <body>
 
-<div class="background">
-    <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-</div>
+<div id="app">
 
+    <!-- MAIN MENU -->
+    <section id="menu" class="menu">
 
-<!-- =====================================================
-     MAIN MENU
-===================================================== -->
+        <div class="logo">BE RICH</div>
+        <div class="subtitle">Start with nothing. Build everything.</div>
 
-<div id="menu" class="screen">
+        <div class="main-buttons">
+            <button class="main-btn primary" onclick="showScreen('play')">
+                PLAY
+            </button>
 
-    <div class="logo">
-        BE RICH
-    </div>
+            <button class="main-btn" onclick="showScreen('friends')">
+                FRIENDS
+            </button>
 
-    <div class="subtitle">
-        Start with nothing. Become rich.
-    </div>
+            <button class="main-btn" onclick="showScreen('notifications')">
+                NOTIFICATIONS
+            </button>
 
-    <button class="menu-button" onclick="showPlay()">
-        ▶ PLAY
-    </button>
+            <button class="main-btn" onclick="showScreen('settings')">
+                SETTINGS
+            </button>
 
-    <button class="menu-button" onclick="showNewGame()">
-        ＋ NEW GAME
-    </button>
-
-    <button class="menu-button" onclick="settings()">
-        ⚙ SETTINGS
-    </button>
-
-    <button class="menu-button" onclick="credits()">
-        ★ CREDITS
-    </button>
-
-</div>
-
-
-<!-- =====================================================
-     PLAY
-===================================================== -->
-
-<div id="playScreen" class="screen hidden">
-
-    <div class="panel">
-
-        <h2>YOUR GAMES</h2>
-
-        <div id="saves" class="saves-list"></div>
-
-        <button class="menu-button" onclick="backToMenu()">
-            ← BACK
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     NEW GAME
-===================================================== -->
-
-<div id="newGameScreen" class="screen hidden">
-
-    <div class="panel">
-
-        <h2>NEW GAME</h2>
-
-        <div class="panel-title-small">
-            Create your own server
+            <button class="main-btn" onclick="showScreen('credits')">
+                CREDITS
+            </button>
         </div>
 
-        <label for="serverName">
-            SERVER NAME
-        </label>
-
-        <input
-            id="serverName"
-            placeholder="My Server"
-            maxlength="30"
-        >
-
-        <label for="playerCount">
-            PLAYERS
-        </label>
-
-        <select id="playerCount">
-
-            <option value="1">
-                1 Player
-            </option>
-
-            <option value="2">
-                2 Players
-            </option>
-
-            <option value="3">
-                3 Players
-            </option>
-
-        </select>
-
-        <button
-            class="menu-button"
-            onclick="playWithFriends()">
-            👥 PLAY WITH FRIENDS
-        </button>
-
-        <button
-            class="menu-button"
-            onclick="editSkin()">
-            👤 EDIT SKIN
-        </button>
-
-        <button
-            class="menu-button"
-            onclick="createGame()">
-            🚀 CREATE GAME
-        </button>
-
-        <button
-            class="menu-button"
-            onclick="backToMenu()">
-            ← BACK
-        </button>
-
-    </div>
-
-</div>
+        <div class="version">BE RICH • Prototype</div>
+    </section>
 
 
-<!-- =====================================================
-     GAME
-===================================================== -->
+    <!-- PLAY -->
+    <section id="play" class="screen">
 
-<div id="game" class="screen">
-
-    <div class="game-world">
-
-        <div class="sky-light"></div>
-
-        <div class="mountain one"></div>
-        <div class="mountain two"></div>
-        <div class="mountain three"></div>
-
-        <div class="world-ground"></div>
-
-        <div class="road">
-            <div class="road-line"></div>
+        <div class="topbar">
+            <div class="top-title">PLAY</div>
+            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
         </div>
 
-        <div class="camper-shadow"></div>
+        <div class="panel">
 
-        <div class="camper">
+            <h2>How do you want to play?</h2>
+            <p>Choose how you want to start your journey.</p>
 
-            <div class="camper-roof"></div>
+            <div class="option-grid">
 
-            <div class="window left"></div>
-            <div class="window right"></div>
+                <button class="option" onclick="startSolo()">
+                    <div class="option-title">PLAY SOLO</div>
+                    <div class="option-desc">
+                        Start your own game and build your fortune alone.
+                    </div>
+                </button>
 
-            <div class="camper-stripe"></div>
-
-            <div class="door">
-
-                <div class="door-window"></div>
-
-                <div class="door-handle"></div>
+                <button class="option" onclick="showScreen('friendsPlay')">
+                    <div class="option-title">PLAY WITH FRIENDS</div>
+                    <div class="option-desc">
+                        Create a private party or join one with a code.
+                    </div>
+                </button>
 
             </div>
 
-            <div class="wheel left"></div>
-            <div class="wheel right"></div>
+        </div>
+    </section>
 
+
+    <!-- FRIEND PLAY -->
+    <section id="friendsPlay" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">PLAY WITH FRIENDS</div>
+            <button class="back-btn" onclick="showScreen('play')">BACK</button>
         </div>
 
+        <div class="panel">
 
-        <div id="player" class="player">
+            <div class="option-grid">
 
-            <div id="playerName" class="player-name">
-                Player 1
+                <button class="option" onclick="showScreen('createParty')">
+                    <div class="option-title">CREATE PARTY</div>
+                    <div class="option-desc">
+                        Create a private party and invite your friends.
+                    </div>
+                </button>
+
+                <button class="option" onclick="showScreen('joinParty')">
+                    <div class="option-title">JOIN PARTY</div>
+                    <div class="option-desc">
+                        Enter a party code to join your friends.
+                    </div>
+                </button>
+
             </div>
 
-            <div class="player-head"></div>
+        </div>
+    </section>
 
-            <div class="player-body"></div>
+
+    <!-- CREATE PARTY -->
+    <section id="createParty" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">CREATE PARTY</div>
+            <button class="back-btn" onclick="showScreen('friendsPlay')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>Your private party</h2>
+            <p>Share this code with your friends.</p>
+
+            <div class="party-code">
+
+                <small>PARTY CODE</small>
+
+                <div id="partyCode" class="code">------</div>
+
+                <button class="copy-btn" onclick="copyPartyCode()">
+                    COPY CODE
+                </button>
+
+            </div>
+
+            <button class="create-btn" onclick="createParty()">
+                CREATE NEW PARTY
+            </button>
+
+            <button class="create-btn" style="margin-top:10px;background:#222;color:white;"
+                onclick="startPartyGame()">
+                START GAME
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- JOIN PARTY -->
+    <section id="joinParty" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">JOIN PARTY</div>
+            <button class="back-btn" onclick="showScreen('friendsPlay')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>Enter party code</h2>
+            <p>Ask the party host for their private code.</p>
+
+            <div class="form-group">
+                <label>Party code</label>
+                <input
+                    id="joinCode"
+                    class="text-input"
+                    maxlength="6"
+                    placeholder="ABC123"
+                    oninput="this.value=this.value.toUpperCase()"
+                >
+            </div>
+
+            <button class="create-btn" onclick="joinParty()">
+                JOIN PARTY
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- FRIENDS -->
+    <section id="friends" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">FRIENDS</div>
+            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>Your Friends</h2>
+            <p>Add friends and see who is online.</p>
+
+            <div class="form-group">
+                <label>Friend name</label>
+                <input
+                    id="friendName"
+                    class="text-input"
+                    placeholder="Enter username"
+                >
+            </div>
+
+            <button class="create-btn" onclick="addFriend()">
+                ADD FRIEND
+            </button>
+
+            <br><br>
+
+            <div id="friendList" class="friend-list"></div>
+
+        </div>
+    </section>
+
+
+    <!-- NOTIFICATIONS -->
+    <section id="notifications" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">NOTIFICATIONS</div>
+            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>Notifications</h2>
+            <p>Important activity will appear here.</p>
+
+            <div id="notificationList"></div>
+
+        </div>
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section id="settings" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">SETTINGS</div>
+            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>Settings</h2>
+            <p>Customize your BE RICH experience.</p>
+
+            <button class="option" style="width:100%;min-height:90px;">
+                <div class="option-title">GRAPHICS</div>
+                <div class="option-desc">
+                    Graphics settings will be added later.
+                </div>
+            </button>
+
+            <br><br>
+
+            <button class="option" style="width:100%;min-height:90px;">
+                <div class="option-title">AUDIO</div>
+                <div class="option-desc">
+                    Music and sound settings will be added later.
+                </div>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- CREDITS -->
+    <section id="credits" class="screen">
+
+        <div class="topbar">
+            <div class="top-title">CREDITS</div>
+            <button class="back-btn" onclick="showScreen('menu')">BACK</button>
+        </div>
+
+        <div class="panel">
+
+            <h2>BE RICH</h2>
+
+            <p>
+                A browser game about starting with nothing
+                and becoming rich.
+            </p>
+
+            <p>
+                More features are coming.
+            </p>
+
+        </div>
+    </section>
+
+
+    <!-- GAME -->
+    <section id="game" class="game">
+
+        <div class="game-ui">
+
+            <div class="money">
+                MONEY: <span id="money">$100</span>
+            </div>
+
+            <div class="objective">
+                <small>CURRENT OBJECTIVE</small><br>
+                Get rich.
+            </div>
+
+            <div class="camping-car"></div>
+
+            <div class="game-text">
+                <h1>Welcome to BE RICH</h1>
+                <p>You start with an old camping car and $100.</p>
+            </div>
 
         </div>
 
-    </div>
-
-
-    <div id="hud">
-        💵 $<span id="money">100</span>
-    </div>
-
-    <div id="serverHud">
-        Server
-    </div>
-
-    <button
-        class="exit-button"
-        onclick="leaveGame()">
-        🚪 SAVE & EXIT
-    </button>
+    </section>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   GAME DATA
-========================================================= */
+/* =========================
+   SCREEN SYSTEM
+========================= */
 
-let currentSaveId = null;
-let money = 100;
-let currentServerName = "My Server";
-let currentPlayers = 1;
+function showScreen(id) {
 
-
-/* =========================================================
-   SAVE SYSTEM
-========================================================= */
-
-/*
-   All games are stored in one array.
-
-   Example:
-
-   [
-      { id: "...", name: "My Server", money: 100, players: 1 },
-      { id: "...", name: "Friends", money: 500, players: 3 }
-   ]
-*/
-
-function getSaves() {
-
-    let data =
-        localStorage.getItem("beRichSaves");
-
-    if (!data) {
-        return [];
-    }
-
-    try {
-
-        let saves = JSON.parse(data);
-
-        if (!Array.isArray(saves)) {
-            return [];
-        }
-
-        return saves;
-
-    } catch {
-
-        return [];
-    }
-}
-
-
-function saveAllSaves(saves) {
-
-    localStorage.setItem(
-        "beRichSaves",
-        JSON.stringify(saves)
-    );
-}
-
-
-/* =========================================================
-   OLD SAVE MIGRATION
-========================================================= */
-
-function migrateOldSave() {
-
-    let oldSave =
-        localStorage.getItem("beRichSave");
-
-    let newSaves =
-        localStorage.getItem("beRichSaves");
-
-
-    if (!oldSave || newSaves) {
-        return;
-    }
-
-
-    try {
-
-        let old =
-            JSON.parse(oldSave);
-
-        let converted = {
-
-            id:
-                Date.now().toString(),
-
-            name:
-                old.name || "My Server",
-
-            money:
-                Number(old.money) || 100,
-
-            players:
-                Number(old.players) || 1
-
-        };
-
-
-        saveAllSaves([converted]);
-
-        localStorage.removeItem("beRichSave");
-
-    } catch {
-
-        localStorage.removeItem("beRichSave");
-
-    }
-}
-
-
-/* =========================================================
-   SCREEN FUNCTIONS
-========================================================= */
-
-function hideAll() {
-
-    document
-        .getElementById("menu")
-        .classList.add("hidden");
-
-    document
-        .getElementById("playScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("newGameScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("game")
-        .classList.add("hidden");
-}
-
-
-function backToMenu() {
-
-    hideAll();
-
-    document
-        .getElementById("menu")
-        .classList.remove("hidden");
-}
-
-
-/* =========================================================
-   PLAY
-========================================================= */
-
-function showPlay() {
-
-    hideAll();
-
-    document
-        .getElementById("playScreen")
-        .classList.remove("hidden");
-
-    loadSaves();
-}
-
-
-/* =========================================================
-   NEW GAME
-========================================================= */
-
-function showNewGame() {
-
-    hideAll();
-
-    document
-        .getElementById("newGameScreen")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("serverName")
-        .focus();
-}
-
-
-/* =========================================================
-   CREATE GAME
-========================================================= */
-
-function createGame() {
-
-    let server =
-        document
-            .getElementById("serverName")
-            .value
-            .trim();
-
-
-    let players =
-        Number(
-            document
-                .getElementById("playerCount")
-                .value
-        );
-
-
-    if (server === "") {
-
-        server = "My Server";
-
-    }
-
-
-    money = 100;
-
-
-    let newSave = {
-
-        id:
-            Date.now().toString()
-            +
-            Math.random()
-                .toString(36)
-                .substring(2),
-
-        name:
-            server,
-
-        money:
-            money,
-
-        players:
-            players
-
-    };
-
-
-    let saves =
-        getSaves();
-
-
-    saves.push(newSave);
-
-
-    saveAllSaves(saves);
-
-
-    currentSaveId =
-        newSave.id;
-
-    currentServerName =
-        newSave.name;
-
-    currentPlayers =
-        newSave.players;
-
-
-    startGame();
-}
-
-
-/* =========================================================
-   START GAME
-========================================================= */
-
-function startGame() {
-
-    hideAll();
-
-    document
-        .getElementById("game")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("money")
-        .innerText =
-            money;
-
-
-    document
-        .getElementById("serverHud")
-        .innerText =
-            currentServerName
-            +
-            " • "
-            +
-            currentPlayers
-            +
-            " Player"
-            +
-            (currentPlayers === 1 ? "" : "s");
-
-
-    document
-        .getElementById("playerName")
-        .innerText =
-            "Player 1";
-}
-
-
-/* =========================================================
-   LOAD ALL SAVES
-========================================================= */
-
-function loadSaves() {
-
-    let savesContainer =
-        document
-            .getElementById("saves");
-
-
-    savesContainer.innerHTML = "";
-
-
-    let saves =
-        getSaves();
-
-
-    if (saves.length === 0) {
-
-        savesContainer.innerHTML =
-
-            '<div class="no-saves">' +
-
-            '<div style="font-size:40px;">🎮</div>' +
-
-            '<div style="font-size:18px;margin-top:10px;">' +
-            'No saved games yet' +
-            '</div>' +
-
-            '<div class="save-count">' +
-            'Create a new game to get started.' +
-            '</div>' +
-
-            '</div>';
-
-        return;
-    }
-
-
-    saves.forEach(function(save) {
-
-        let div =
-            document
-                .createElement("div");
-
-        div.className =
-            "save";
-
-
-        let name =
-            document
-                .createElement("div");
-
-        name.className =
-            "save-name";
-
-        name.innerText =
-            "🎮 " + save.name;
-
-
-        let info =
-            document
-                .createElement("div");
-
-        info.className =
-            "save-info";
-
-        info.innerHTML =
-
-            "💵 Money: $" +
-            Number(save.money).toLocaleString() +
-
-            "<br>" +
-
-            "👥 Players: " +
-            save.players;
-
-
-        let actions =
-            document
-                .createElement("div");
-
-        actions.className =
-            "save-actions";
-
-
-        /* PLAY */
-
-        let playButton =
-            document
-                .createElement("button");
-
-        playButton.className =
-            "small-button";
-
-        playButton.innerText =
-            "▶ PLAY";
-
-
-        playButton.onclick =
-            function() {
-
-                openSave(save.id);
-
-            };
-
-
-        /* DELETE */
-
-        let deleteButton =
-            document
-                .createElement("button");
-
-        deleteButton.className =
-            "small-button delete-button";
-
-        deleteButton.innerText =
-            "🗑 DELETE";
-
-
-        deleteButton.onclick =
-            function() {
-
-                deleteSave(save.id);
-
-            };
-
-
-        actions.appendChild(
-            playButton
-        );
-
-        actions.appendChild(
-            deleteButton
-        );
-
-
-        div.appendChild(name);
-
-        div.appendChild(info);
-
-        div.appendChild(actions);
-
-
-        savesContainer.appendChild(div);
-
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
     });
 
+    document.querySelector(".menu").style.display = "none";
+    document.getElementById("game").classList.remove("active");
+
+    if (id === "menu") {
+        document.querySelector(".menu").style.display = "flex";
+        return;
+    }
+
+    document.getElementById(id).classList.add("active");
+
+    if (id === "friends") {
+        loadFriends();
+    }
+
+    if (id === "notifications") {
+        loadNotifications();
+    }
 }
 
 
-/* =========================================================
-   OPEN SAVE
-========================================================= */
+/* =========================
+   GAME
+========================= */
 
-function openSave(id) {
+function startSolo() {
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
 
-    let saves =
-        getSaves();
+    document.querySelector(".menu").style.display = "none";
+
+    document.getElementById("game").classList.add("active");
+}
+
+function startPartyGame() {
+    startSolo();
+}
 
 
-    let save =
-        saves.find(
-            function(item) {
+/* =========================
+   PARTY SYSTEM
+========================= */
 
-                return item.id === id;
+function generatePartyCode() {
 
-            }
-        );
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for (let i = 0; i < 6; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return code;
+}
+
+function createParty() {
+
+    const code = generatePartyCode();
+
+    localStorage.setItem("beRichParty", code);
+
+    document.getElementById("partyCode").textContent = code;
+}
+
+function copyPartyCode() {
+
+    const code = document.getElementById("partyCode").textContent;
+
+    if (code === "------") {
+        alert("Create a party first.");
+        return;
+    }
+
+    navigator.clipboard.writeText(code)
+        .then(() => {
+            alert("Party code copied!");
+        })
+        .catch(() => {
+            alert("Your party code is: " + code);
+        });
+}
+
+function joinParty() {
+
+    const code = document.getElementById("joinCode").value.trim();
+
+    if (code.length !== 6) {
+        alert("Enter a valid 6-character party code.");
+        return;
+    }
+
+    alert("Party joined: " + code);
+
+    startSolo();
+}
 
 
-    if (!save) {
+/* =========================
+   FRIEND SYSTEM
+========================= */
 
-        alert(
-            "This save could not be found."
-        );
+function getFriends() {
 
-        loadSaves();
+    return JSON.parse(
+        localStorage.getItem("beRichFriends") || "[]"
+    );
+}
+
+function saveFriends(friends) {
+
+    localStorage.setItem(
+        "beRichFriends",
+        JSON.stringify(friends)
+    );
+}
+
+function addFriend() {
+
+    const input = document.getElementById("friendName");
+
+    const name = input.value.trim();
+
+    if (!name) {
+        alert("Enter a username.");
+        return;
+    }
+
+    let friends = getFriends();
+
+    if (
+        friends.some(
+            friend => friend.name.toLowerCase() === name.toLowerCase()
+        )
+    ) {
+        alert("This player is already on your friends list.");
+        return;
+    }
+
+    friends.push({
+        name: name,
+        online: false
+    });
+
+    saveFriends(friends);
+
+    input.value = "";
+
+    addNotification(
+        "Friend request",
+        "Friend request sent to " + name + "."
+    );
+
+    loadFriends();
+
+    alert("Friend request sent!");
+}
+
+function loadFriends() {
+
+    const container = document.getElementById("friendList");
+
+    const friends = getFriends();
+
+    container.innerHTML = "";
+
+    if (friends.length === 0) {
+
+        container.innerHTML = `
+            <div class="friend">
+                <span class="offline">No friends yet.</span>
+            </div>
+        `;
 
         return;
     }
 
+    friends.forEach((friend, index) => {
 
-    currentSaveId =
-        save.id;
+        const div = document.createElement("div");
 
-    currentServerName =
-        save.name;
+        div.className = "friend";
 
-    currentPlayers =
-        Number(save.players) || 1;
+        div.innerHTML = `
+            <div>
+                <div class="friend-name">${escapeHTML(friend.name)}</div>
+                <div class="${friend.online ? "online" : "offline"}">
+                    ${friend.online ? "ONLINE" : "OFFLINE"}
+                </div>
+            </div>
 
-    money =
-        Number(save.money) || 100;
+            <button
+                class="delete-friend"
+                onclick="removeFriend(${index})">
+                REMOVE
+            </button>
+        `;
 
+        container.appendChild(div);
+    });
+}
 
-    startGame();
+function removeFriend(index) {
+
+    let friends = getFriends();
+
+    friends.splice(index, 1);
+
+    saveFriends(friends);
+
+    loadFriends();
 }
 
 
-/* =========================================================
-   DELETE SAVE
-========================================================= */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
-function deleteSave(id) {
+function getNotifications() {
 
-    let saves =
-        getSaves();
+    return JSON.parse(
+        localStorage.getItem("beRichNotifications") || "[]"
+    );
+}
 
+function addNotification(title, message) {
 
-    let save =
-        saves.find(
-            function(item) {
+    let notifications = getNotifications();
 
-                return item.id === id;
+    notifications.unshift({
+        title: title,
+        message: message,
+        time: new Date().toLocaleString()
+    });
 
-            }
-        );
+    localStorage.setItem(
+        "beRichNotifications",
+        JSON.stringify(notifications)
+    );
+}
 
+function loadNotifications() {
 
-    if (!save) {
+    const container =
+        document.getElementById("notificationList");
+
+    const notifications = getNotifications();
+
+    container.innerHTML = "";
+
+    if (notifications.length === 0) {
+
+        container.innerHTML = `
+            <div class="notification">
+                <strong>No notifications</strong>
+                <span>You're all caught up.</span>
+            </div>
+        `;
+
         return;
     }
 
+    notifications.forEach(notification => {
 
-    let answer =
-        confirm(
-            'Delete "' +
-            save.name +
-            '"?\n\nThis cannot be undone.'
-        );
+        const div = document.createElement("div");
 
+        div.className = "notification";
 
-    if (!answer) {
-        return;
-    }
+        div.innerHTML = `
+            <strong>${escapeHTML(notification.title)}</strong>
+            <span>${escapeHTML(notification.message)}</span>
+        `;
 
-
-    let remaining =
-        saves.filter(
-            function(item) {
-
-                return item.id !== id;
-
-            }
-        );
-
-
-    saveAllSaves(
-        remaining
-    );
-
-
-    loadSaves();
+        container.appendChild(div);
+    });
 }
 
 
-/* =========================================================
-   SAVE CURRENT GAME
-========================================================= */
+/* =========================
+   SECURITY / TEXT
+========================= */
 
-function saveCurrentGame() {
+function escapeHTML(text) {
 
-    if (!currentSaveId) {
-        return;
-    }
+    const div = document.createElement("div");
 
+    div.textContent = text;
 
-    let saves =
-        getSaves();
-
-
-    let save =
-        saves.find(
-            function(item) {
-
-                return item.id === currentSaveId;
-
-            }
-        );
-
-
-    if (!save) {
-        return;
-    }
-
-
-    save.money =
-        money;
-
-
-    save.name =
-        currentServerName;
-
-
-    save.players =
-        currentPlayers;
-
-
-    saveAllSaves(
-        saves
-    );
+    return div.innerHTML;
 }
 
 
-/* =========================================================
-   LEAVE GAME
-========================================================= */
-
-function leaveGame() {
-
-    saveCurrentGame();
-
-    backToMenu();
-}
-
-
-/* =========================================================
-   PLACEHOLDER BUTTONS
-========================================================= */
-
-function playWithFriends() {
-
-    alert(
-        "PLAY WITH FRIENDS kjem snart! 👥\n\n" +
-        "Vi skal lage ekte multiplayer seinare."
-    );
-}
-
-
-function editSkin() {
-
-    alert(
-        "EDIT SKIN kjem snart! 👤"
-    );
-}
-
-
-function settings() {
-
-    alert(
-        "SETTINGS kjem snart! ⚙️"
-    );
-}
-
-
-function credits() {
-
-    alert(
-        "BE RICH\n\n" +
-        "Created by you 😎"
-    );
-}
-
-
-/* =========================================================
+/* =========================
    STARTUP
-========================================================= */
+========================= */
 
-migrateOldSave();
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelector(".menu").style.display = "flex";
+
+    loadFriends();
+    loadNotifications();
+
+    const savedParty =
+        localStorage.getItem("beRichParty");
+
+    if (savedParty) {
+        document.getElementById("partyCode").textContent =
+            savedParty;
+    }
+});
 
 </script>
 
