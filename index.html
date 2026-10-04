@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BE RICH</title>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+
 <style>
 * {
     box-sizing: border-box;
@@ -14,11 +16,10 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at 50% 20%, #202020 0%, #090909 45%, #020202 100%);
+    background: #050505;
     color: white;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 button,
@@ -30,13 +31,7 @@ button {
     cursor: pointer;
 }
 
-#app {
-    min-height: 100vh;
-}
-
-/* =========================
-   MENU
-========================= */
+/* MENU */
 
 .menu {
     min-height: 100vh;
@@ -44,33 +39,26 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
     padding: 30px;
 }
 
 .logo {
-    font-size: clamp(60px, 10vw, 125px);
+    font-size: clamp(60px, 10vw, 120px);
     font-weight: 1000;
-    letter-spacing: -7px;
-    line-height: .85;
+    letter-spacing: -6px;
     text-align: center;
-    color: white;
-    text-shadow:
-        0 0 10px rgba(255,255,255,.15),
-        0 0 40px rgba(255,255,255,.08);
 }
 
 .subtitle {
-    margin-top: 18px;
+    margin-top: 15px;
     color: #777;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     font-size: 13px;
-    text-transform: uppercase;
 }
 
 .main-buttons {
     width: min(390px, 90vw);
-    margin-top: 55px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 13px;
@@ -80,47 +68,38 @@ button {
     height: 62px;
     border: 1px solid #333;
     border-radius: 10px;
-    background: linear-gradient(180deg, #191919, #101010);
+    background: linear-gradient(#191919, #101010);
     color: white;
     font-size: 17px;
     font-weight: 800;
     letter-spacing: 2px;
-    transition: .2s;
-    box-shadow: 0 8px 25px rgba(0,0,0,.35);
 }
 
 .main-btn:hover {
-    transform: translateY(-3px);
-    border-color: #666;
-    background: linear-gradient(180deg, #242424, #141414);
+    background: #252525;
+    transform: translateY(-2px);
 }
 
 .main-btn.primary {
     background: white;
     color: black;
-    border-color: white;
-}
-
-.main-btn.primary:hover {
-    background: #ddd;
 }
 
 .version {
     position: absolute;
     bottom: 20px;
-    left: 25px;
+    left: 22px;
     color: #444;
     font-size: 12px;
 }
 
-/* =========================
-   SCREENS
-========================= */
+/* SCREENS */
 
 .screen {
     min-height: 100vh;
     padding: 30px;
     display: none;
+    overflow-y: auto;
 }
 
 .screen.active {
@@ -129,17 +108,15 @@ button {
 
 .topbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    max-width: 1100px;
-    margin: auto;
-    margin-bottom: 35px;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto auto 30px;
 }
 
 .top-title {
     font-size: 32px;
     font-weight: 900;
-    letter-spacing: 1px;
 }
 
 .back-btn {
@@ -148,25 +125,17 @@ button {
     color: white;
     padding: 11px 18px;
     border-radius: 8px;
-    font-weight: bold;
 }
 
-.back-btn:hover {
-    background: #222;
-}
-
-/* =========================
-   PANELS
-========================= */
+/* PANELS */
 
 .panel {
     max-width: 850px;
     margin: auto;
-    background: rgba(15,15,15,.92);
+    background: #101010;
     border: 1px solid #2d2d2d;
     border-radius: 14px;
     padding: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.4);
 }
 
 .panel h2 {
@@ -192,13 +161,10 @@ button {
     color: white;
     padding: 22px;
     text-align: left;
-    transition: .2s;
 }
 
 .option:hover {
-    transform: translateY(-3px);
-    border-color: #777;
-    background: #191919;
+    background: #1c1c1c;
 }
 
 .option-title {
@@ -212,23 +178,7 @@ button {
     line-height: 1.4;
 }
 
-/* =========================
-   FORMS
-========================= */
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #aaa;
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+/* INPUTS */
 
 .text-input {
     width: 100%;
@@ -240,10 +190,7 @@ button {
     padding: 0 15px;
     font-size: 16px;
     outline: none;
-}
-
-.text-input:focus {
-    border-color: #777;
+    margin-bottom: 15px;
 }
 
 .create-btn {
@@ -254,194 +201,38 @@ button {
     background: white;
     color: black;
     font-weight: 900;
-    font-size: 15px;
-    margin-top: 8px;
 }
 
-.create-btn:hover {
-    background: #ddd;
-}
-
-/* =========================
-   SAVED GAMES
-========================= */
-
-.saved-games {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.saved-game {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 18px;
-    background: #0c0c0c;
-    border: 1px solid #292929;
-    border-radius: 10px;
-}
-
-.saved-game-info {
-    flex: 1;
-}
-
-.saved-game-name {
-    font-size: 19px;
-    font-weight: 900;
-    margin-bottom: 8px;
-}
-
-.saved-game-stats {
-    color: #777;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.saved-game-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.play-save-btn,
-.delete-save-btn {
-    border: 1px solid #444;
-    border-radius: 7px;
-    padding: 10px 15px;
-    font-weight: 900;
-}
-
-.play-save-btn {
-    background: white;
-    color: black;
-}
-
-.play-save-btn:hover {
-    background: #ddd;
-}
-
-.delete-save-btn {
-    background: #181818;
-    color: #aaa;
-}
-
-.delete-save-btn:hover {
-    background: #252525;
-    color: white;
-}
-
-.no-saves {
-    text-align: center;
-    padding: 35px;
-    border: 1px dashed #444;
-    border-radius: 10px;
-    color: #666;
-}
-
-/* =========================
-   PARTY
-========================= */
-
-.party-code {
-    text-align: center;
-    margin: 25px 0;
-    padding: 25px;
-    border: 1px dashed #555;
-    border-radius: 12px;
-    background: #090909;
-}
-
-.party-code small {
-    color: #777;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.code {
-    font-size: 42px;
-    font-weight: 1000;
-    letter-spacing: 8px;
-}
-
-.copy-btn {
-    margin-top: 18px;
-    background: #202020;
-    border: 1px solid #444;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 7px;
-    font-weight: bold;
-}
-
-/* =========================
-   FRIENDS
-========================= */
-
-.friend-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+/* FRIENDS */
 
 .friend {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 15px;
     border: 1px solid #292929;
     border-radius: 9px;
     background: #0c0c0c;
-}
-
-.friend-name {
-    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .online {
     color: #63e36b;
-    font-size: 12px;
 }
 
-.offline {
-    color: #666;
-    font-size: 12px;
-}
+/* GAME */
 
-.delete-friend {
-    background: #181818;
-    border: 1px solid #333;
-    color: #aaa;
-    padding: 7px 10px;
-    border-radius: 6px;
-}
-
-/* =========================
-   NOTIFICATIONS
-========================= */
-
-.notification {
-    border: 1px solid #292929;
-    padding: 16px;
-    border-radius: 9px;
-    background: #0c0c0c;
-    margin-bottom: 10px;
-}
-
-.notification strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.notification span {
-    color: #777;
-    font-size: 13px;
-}
-
-/* =========================
-   GAME
-========================= */
 .game {
+    display: none;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #87ceeb;
+}
+
+.game.active {
+    display: block;
+}
+
 #gameCanvas {
     position: fixed;
     inset: 0;
@@ -455,33 +246,26 @@ button {
 }
 
 .game-ui {
-    z-index: 10;
-}
-    min-height: 100vh;
-    display: none;
-    background:
-        radial-gradient(circle at 50% 35%, #333 0%, #151515 35%, #050505 80%);
-}
-
-.game.active {
-    display: block;
-}
-
-.game-ui {
     position: fixed;
     inset: 0;
+    z-index: 10;
     pointer-events: none;
 }
 
-.money {
+.money,
+.player-display,
+.objective {
     position: absolute;
-    top: 25px;
-    left: 25px;
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,.75);
     border: 1px solid #444;
     border-radius: 10px;
     padding: 12px 18px;
     font-weight: 900;
+}
+
+.money {
+    top: 20px;
+    left: 20px;
 }
 
 .money span {
@@ -489,24 +273,13 @@ button {
 }
 
 .player-display {
-    position: absolute;
-    top: 80px;
-    left: 25px;
-    background: rgba(0,0,0,.7);
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px 15px;
-    font-weight: bold;
+    top: 75px;
+    left: 20px;
 }
 
 .objective {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    background: rgba(0,0,0,.7);
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 14px 18px;
+    top: 20px;
+    right: 20px;
     text-align: right;
 }
 
@@ -514,65 +287,9 @@ button {
     color: #777;
 }
 
-.camping-car {
-    position: absolute;
-    width: 330px;
-    height: 170px;
-    background: #6c6c68;
-    border-radius: 22px 28px 10px 10px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 30px 80px rgba(0,0,0,.6);
-}
-
-.camping-car::before {
-    content: "";
-    position: absolute;
-    width: 115px;
-    height: 60px;
-    background: #222;
-    right: 28px;
-    top: 28px;
-    border-radius: 8px;
-    border: 3px solid #444;
-}
-
-.camping-car::after {
-    content: "";
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: #111;
-    border-radius: 50%;
-    left: 35px;
-    bottom: -27px;
-    box-shadow: 205px 0 0 #111;
-}
-
-.game-text {
-    position: absolute;
-    left: 50%;
-    top: calc(50% + 130px);
-    transform: translateX(-50%);
-    text-align: center;
-}
-
-.game-text h1 {
-    font-size: 28px;
-}
-
-.game-text p {
-    color: #888;
-    margin-top: 8px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* MOBILE */
 
 @media(max-width:650px) {
-
     .option-grid {
         grid-template-columns: 1fr;
     }
@@ -580,43 +297,13 @@ button {
     .panel {
         padding: 20px;
     }
-
-    .top-title {
-        font-size: 25px;
-    }
-
-    .code {
-        font-size: 31px;
-    }
-
-    .camping-car {
-        transform: translate(-50%, -50%) scale(.75);
-    }
-
-    .saved-game {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .saved-game-buttons {
-        width: 100%;
-    }
-
-    .play-save-btn,
-    .delete-save-btn {
-        flex: 1;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
-
-<!-- =========================
-     MAIN MENU
-========================= -->
+<!-- MAIN MENU -->
 
 <section id="menu" class="menu">
 
@@ -659,141 +346,45 @@ button {
 </section>
 
 
-<!-- =========================
-     PLAY
-========================= -->
+<!-- PLAY -->
 
 <section id="play" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            PLAY
-        </div>
-
-        <button class="back-btn" onclick="showScreen('menu')">
-            BACK
-        </button>
-
-    </div>
-
-    <div class="panel">
-
-        <h2>
-            SAVED GAMES
-        </h2>
-
-        <p>
-            Choose a game to continue or create a new one.
-        </p>
-
-        <div id="savedGames" class="saved-games"></div>
-
-        <button class="create-btn" onclick="showNewGame()">
-            NEW GAME
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     NEW GAME
-========================= -->
-
-<section id="newGame" class="screen">
-
-    <div class="topbar">
-
-        <div class="top-title">
-            NEW GAME
-        </div>
-
-        <button class="back-btn" onclick="openPlay()">
-            BACK
-        </button>
-
-    </div>
-
-    <div class="panel">
-
-        <h2>
-            Create a new game
-        </h2>
-
-        <p>
-            Give your new game a name.
-        </p>
-
-        <div class="form-group">
-
-            <label>
-                Game name
-            </label>
-
-            <input
-                id="newGameName"
-                class="text-input"
-                maxlength="30"
-                placeholder="My First Game"
-            >
-
-        </div>
-
-        <button class="create-btn" onclick="createNewGame()">
-            CREATE GAME
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     FRIEND PLAY
-========================= -->
-
-<section id="friendsPlay" class="screen">
-
-    <div class="topbar">
-
-        <div class="top-title">
-            PLAY WITH FRIENDS
-        </div>
-
-        <button class="back-btn" onclick="openPlay()">
-            BACK
-        </button>
-
+        <div class="top-title">PLAY</div>
+        <button class="back-btn" onclick="backToMenu()">BACK</button>
     </div>
 
     <div class="panel">
 
         <div class="option-grid">
 
-            <button class="option" onclick="showScreen('createParty')">
-
-                <div class="option-title">
-                    CREATE PARTY
-                </div>
-
+            <button class="option" onclick="showNewGame()">
+                <div class="option-title">NEW GAME</div>
                 <div class="option-desc">
-                    Create a private party and invite your friends.
+                    Start a new life and begin with almost nothing.
                 </div>
+            </button>
 
+            <button class="option" onclick="showScreen('saved')">
+                <div class="option-title">SAVED GAMES</div>
+                <div class="option-desc">
+                    Continue one of your saved games.
+                </div>
+            </button>
+
+            <button class="option" onclick="showScreen('createParty')">
+                <div class="option-title">CREATE PARTY</div>
+                <div class="option-desc">
+                    Create a private party for up to 3 players.
+                </div>
             </button>
 
             <button class="option" onclick="showScreen('joinParty')">
-
-                <div class="option-title">
-                    JOIN PARTY
-                </div>
-
+                <div class="option-title">JOIN PARTY</div>
                 <div class="option-desc">
-                    Enter a party code to join your friends.
+                    Join a party using a private code.
                 </div>
-
             </button>
 
         </div>
@@ -803,59 +394,31 @@ button {
 </section>
 
 
-<!-- =========================
-     CREATE PARTY
-========================= -->
+<!-- NEW GAME -->
 
-<section id="createParty" class="screen">
+<section id="newGame" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            CREATE PARTY
-        </div>
-
-        <button class="back-btn" onclick="showScreen('friendsPlay')">
-            BACK
-        </button>
-
+        <div class="top-title">NEW GAME</div>
+        <button class="back-btn" onclick="openPlay()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            Your private party
-        </h2>
+        <h2>Create your character</h2>
 
         <p>
-            Share this code with your friends.
+            Choose your player name.
         </p>
 
-        <div class="party-code">
-
-            <small>
-                PARTY CODE
-            </small>
-
-            <div id="partyCode" class="code">
-                ------
-            </div>
-
-            <button class="copy-btn" onclick="copyPartyCode()">
-                COPY CODE
-            </button>
-
-        </div>
-
-        <button class="create-btn" onclick="createParty()">
-            CREATE NEW PARTY
-        </button>
-
-        <button
-            class="create-btn"
-            style="margin-top:10px;background:#222;color:white;"
-            onclick="startPartyGame()"
+        <input
+            id="newPlayerName"
+            class="text-input"
+            placeholder="Player name"
+            maxlength="20"
         >
+
+        <button class="create-btn" onclick="createNewGame()">
             START GAME
         </button>
 
@@ -864,49 +427,74 @@ button {
 </section>
 
 
-<!-- =========================
-     JOIN PARTY
-========================= -->
+<!-- SAVED GAMES -->
 
-<section id="joinParty" class="screen">
+<section id="saved" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            JOIN PARTY
-        </div>
-
-        <button class="back-btn" onclick="showScreen('friendsPlay')">
-            BACK
-        </button>
-
+        <div class="top-title">SAVED GAMES</div>
+        <button class="back-btn" onclick="openPlay()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            Enter party code
-        </h2>
+        <div id="savedGamesList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- CREATE PARTY -->
+
+<section id="createParty" class="screen">
+
+    <div class="topbar">
+        <div class="top-title">CREATE PARTY</div>
+        <button class="back-btn" onclick="openPlay()">BACK</button>
+    </div>
+
+    <div class="panel">
+
+        <h2>Private Party</h2>
 
         <p>
-            Ask the party host for their private code.
+            Share this code with your friends.
         </p>
 
-        <div class="form-group">
-
-            <label>
-                Party code
-            </label>
-
-            <input
-                id="joinCode"
-                class="text-input"
-                maxlength="6"
-                placeholder="ABC123"
-                oninput="this.value=this.value.toUpperCase()"
-            >
-
+        <div id="partyCode"
+             style="font-size:42px;font-weight:1000;text-align:center;margin:30px 0;">
+            ------
         </div>
+
+        <button class="create-btn" onclick="startPartyGame()">
+            START GAME
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- JOIN PARTY -->
+
+<section id="joinParty" class="screen">
+
+    <div class="topbar">
+        <div class="top-title">JOIN PARTY</div>
+        <button class="back-btn" onclick="openPlay()">BACK</button>
+    </div>
+
+    <div class="panel">
+
+        <h2>Enter party code</h2>
+
+        <input
+            id="joinCode"
+            class="text-input"
+            placeholder="6 character code"
+            maxlength="6"
+        >
 
         <button class="create-btn" onclick="joinParty()">
             JOIN PARTY
@@ -917,47 +505,24 @@ button {
 </section>
 
 
-<!-- =========================
-     FRIENDS
-========================= -->
+<!-- FRIENDS -->
 
 <section id="friends" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            FRIENDS
-        </div>
-
-        <button class="back-btn" onclick="showScreen('menu')">
-            BACK
-        </button>
-
+        <div class="top-title">FRIENDS</div>
+        <button class="back-btn" onclick="backToMenu()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            Your Friends
-        </h2>
+        <h2>Add Friend</h2>
 
-        <p>
-            Add friends and see who is online.
-        </p>
-
-        <div class="form-group">
-
-            <label>
-                Friend name
-            </label>
-
-            <input
-                id="friendName"
-                class="text-input"
-                placeholder="Enter username"
-            >
-
-        </div>
+        <input
+            id="friendName"
+            class="text-input"
+            placeholder="Friend name"
+        >
 
         <button class="create-btn" onclick="addFriend()">
             ADD FRIEND
@@ -965,124 +530,54 @@ button {
 
         <br><br>
 
-        <div id="friendList" class="friend-list"></div>
+        <div id="friendList"></div>
 
     </div>
 
 </section>
 
 
-<!-- =========================
-     NOTIFICATIONS
-========================= -->
+<!-- NOTIFICATIONS -->
 
 <section id="notifications" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            NOTIFICATIONS
-        </div>
-
-        <button class="back-btn" onclick="showScreen('menu')">
-            BACK
-        </button>
-
+        <div class="top-title">NOTIFICATIONS</div>
+        <button class="back-btn" onclick="backToMenu()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            Notifications
-        </h2>
-
-        <p>
-            Important activity will appear here.
-        </p>
-
-        <div id="notificationList"></div>
+        <div id="notificationList">
+            <p>No new notifications.</p>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================
-     SETTINGS
-========================= -->
+<!-- SETTINGS -->
 
 <section id="settings" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            SETTINGS
-        </div>
-
-        <button class="back-btn" onclick="showScreen('menu')">
-            BACK
-        </button>
-
+        <div class="top-title">SETTINGS</div>
+        <button class="back-btn" onclick="backToMenu()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            Settings
-        </h2>
+        <h2>Player Name</h2>
 
-        <p>
-            Customize your BE RICH experience.
-        </p>
-
-        <button
-            class="option"
-            style="width:100%;min-height:90px;"
-            onclick="changeName()"
+        <input
+            id="settingsName"
+            class="text-input"
+            placeholder="Player name"
         >
 
-            <div class="option-title">
-                CHANGE NAME
-            </div>
-
-            <div class="option-desc">
-                Change the name other players see.
-            </div>
-
-        </button>
-
-        <br><br>
-
-        <button
-            class="option"
-            style="width:100%;min-height:90px;"
-        >
-
-            <div class="option-title">
-                GRAPHICS
-            </div>
-
-            <div class="option-desc">
-                Graphics settings will be added later.
-            </div>
-
-        </button>
-
-        <br><br>
-
-        <button
-            class="option"
-            style="width:100%;min-height:90px;"
-        >
-
-            <div class="option-title">
-                AUDIO
-            </div>
-
-            <div class="option-desc">
-                Music and sound settings will be added later.
-            </div>
-
+        <button class="create-btn" onclick="changeName()">
+            SAVE NAME
         </button>
 
     </div>
@@ -1090,37 +585,25 @@ button {
 </section>
 
 
-<!-- =========================
-     CREDITS
-========================= -->
+<!-- CREDITS -->
 
 <section id="credits" class="screen">
 
     <div class="topbar">
-
-        <div class="top-title">
-            CREDITS
-        </div>
-
-        <button class="back-btn" onclick="showScreen('menu')">
-            BACK
-        </button>
-
+        <div class="top-title">CREDITS</div>
+        <button class="back-btn" onclick="backToMenu()">BACK</button>
     </div>
 
     <div class="panel">
 
-        <h2>
-            BE RICH
-        </h2>
+        <h2>BE RICH</h2>
 
         <p>
-            A browser game about starting with nothing
-            and becoming rich.
+            A game about starting with nothing and building everything.
         </p>
 
         <p>
-            More features are coming.
+            Prototype version.
         </p>
 
     </div>
@@ -1128,13 +611,14 @@ button {
 </section>
 
 
-<!-- =========================
-     GAME
-========================= -->
+<!-- 3D GAME -->
+
 <section id="game" class="game">
+
     <div id="gameCanvas"></div>
 
     <div class="game-ui">
+
         <div class="money">
             MONEY:
             <span id="money">$100</span>
@@ -1146,111 +630,132 @@ button {
         </div>
 
         <div class="objective">
-            <small>CURRENT OBJECTIVE</small>
-            <br>
-            <span id="objectiveText">Get rich.</span>
-        </div>
-    </div>
-</section>
 
-</div>
+            <small>CURRENT OBJECTIVE</small>
+
+            <br>
+
+            <span id="objectiveText">
+                Explore the world.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 <script>
 
-/* =========================
-   SCREEN SYSTEM
-========================= */
+/* SCREEN SYSTEM */
 
-function showScreen(id) {
+function hideAllScreens() {
 
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
-    document.querySelector(".menu").style.display = "none";
+}
 
-    document.getElementById("game").classList.remove("active");
+function showScreen(id) {
 
-    if (id === "menu") {
+    document.getElementById("menu").style.display = "none";
 
-        document.querySelector(".menu").style.display = "flex";
-
-        return;
-    }
+    hideAllScreens();
 
     document.getElementById(id).classList.add("active");
 
-    if (id === "friends") {
-        loadFriends();
-    }
-
-    if (id === "notifications") {
-        loadNotifications();
-    }
 }
 
 
-/* =========================
-   PLAYER NAME
-========================= */
+/* MENU */
 
-function getPlayerName() {
+function backToMenu() {
 
-    return localStorage.getItem("beRichPlayerName") || "";
+    hideAllScreens();
+
+    document.getElementById("menu").style.display = "flex";
+
 }
 
 
-function changeName() {
-
-    const currentName =
-        getPlayerName();
-
-    const newName =
-        prompt("Enter your new name:", currentName);
-
-    if (newName === null) {
-        return;
-    }
-
-    const name =
-        newName.trim();
-
-    if (!name) {
-
-        alert("Enter a valid name.");
-
-        return;
-    }
-
-    localStorage.setItem(
-        "beRichPlayerName",
-        name
-    );
-
-    alert("Name changed!");
-}
-
-
-/* =========================
-   PLAY / SAVED GAMES
-========================= */
+/* PLAY */
 
 function openPlay() {
 
     showScreen("play");
 
-    loadSavedGames();
 }
 
+
+/* PLAYER NAME */
+
+function getPlayerName() {
+
+    return localStorage.getItem("beRichPlayerName") || "Player";
+
+}
+
+function changeName() {
+
+    const input = document.getElementById("settingsName");
+
+    const name = input.value.trim();
+
+    if (!name) return;
+
+    localStorage.setItem("beRichPlayerName", name);
+
+    input.value = "";
+
+    alert("Player name saved.");
+
+}
+
+
+/* NEW GAME */
+
+function showNewGame() {
+
+    showScreen("newGame");
+
+    document.getElementById("newPlayerName").value = getPlayerName();
+
+}
+
+function createNewGame() {
+
+    const input = document.getElementById("newPlayerName");
+
+    const name = input.value.trim() || "Player";
+
+    localStorage.setItem("beRichPlayerName", name);
+
+    const games = getSavedGames();
+
+    games.push({
+        name: name,
+        money: 100,
+        progress: "Starting out"
+    });
+
+    saveSavedGames(games);
+
+    playSavedGame(games.length - 1);
+
+}
+
+
+/* SAVED GAMES */
 
 function getSavedGames() {
 
     return JSON.parse(
         localStorage.getItem("beRichSavedGames") || "[]"
     );
-}
 
+}
 
 function saveSavedGames(games) {
 
@@ -1258,25 +763,23 @@ function saveSavedGames(games) {
         "beRichSavedGames",
         JSON.stringify(games)
     );
-}
 
+}
 
 function loadSavedGames() {
 
-    const container =
-        document.getElementById("savedGames");
+    const container = document.getElementById("savedGamesList");
 
-    const games =
-        getSavedGames();
+    const games = getSavedGames();
 
     container.innerHTML = "";
 
     if (games.length === 0) {
 
         container.innerHTML = `
-            <div class="no-saves">
+            <p style="color:#777;text-align:center;">
                 No saved games yet.
-            </div>
+            </p>
         `;
 
         return;
@@ -1284,311 +787,164 @@ function loadSavedGames() {
 
     games.forEach((game, index) => {
 
-        const div =
-            document.createElement("div");
+        const box = document.createElement("div");
 
-        div.className = "saved-game";
+        box.style.cssText =
+            "border:1px solid #333;padding:18px;border-radius:10px;margin-bottom:10px;background:#0c0c0c;";
 
-        div.innerHTML = `
+        box.innerHTML = `
+            <strong>${escapeHTML(game.name)}</strong>
+            <br>
+            <span style="color:#777;">
+                Money: $${game.money}
+            </span>
+            <br><br>
+            <button
+                onclick="playSavedGame(${index})"
+                style="padding:10px 15px;margin-right:5px;"
+            >
+                PLAY
+            </button>
 
-            <div class="saved-game-info">
-
-                <div class="saved-game-name">
-                    ${escapeHTML(game.name)}
-                </div>
-
-                <div class="saved-game-stats">
-
-                    MONEY:
-                    $${Number(game.money).toLocaleString()}
-
-                    <br>
-
-                    PROGRESS:
-                    ${game.progress}%
-
-                </div>
-
-            </div>
-
-            <div class="saved-game-buttons">
-
-                <button
-                    class="play-save-btn"
-                    onclick="playSavedGame(${index})"
-                >
-                    PLAY
-                </button>
-
-                <button
-                    class="delete-save-btn"
-                    onclick="deleteSavedGame(${index})"
-                >
-                    DELETE
-                </button>
-
-            </div>
+            <button
+                onclick="deleteSavedGame(${index})"
+                style="padding:10px 15px;"
+            >
+                DELETE
+            </button>
         `;
 
-        container.appendChild(div);
+        container.appendChild(box);
+
     });
+
 }
-
-
-function showNewGame() {
-
-    showScreen("newGame");
-
-    document.getElementById("newGameName").value = "";
-
-    setTimeout(() => {
-
-        document.getElementById("newGameName").focus();
-
-    }, 100);
-}
-
-
-function createNewGame() {
-
-    const input =
-        document.getElementById("newGameName");
-
-    const name =
-        input.value.trim();
-
-    if (!name) {
-
-        alert("Enter a game name.");
-
-        return;
-    }
-
-    let games =
-        getSavedGames();
-
-    const newGame = {
-
-        id: Date.now(),
-
-        name: name,
-
-        money: 100,
-
-        progress: 0
-    };
-
-    games.push(newGame);
-
-    saveSavedGames(games);
-
-    playSavedGame(games.length - 1);
-}
-
 
 function playSavedGame(index) {
 
-    const games =
-        getSavedGames();
+    const games = getSavedGames();
 
-    const game =
-        games[index];
+    const game = games[index];
 
-    if (!game) {
-        return;
-    }
+    if (!game) return;
 
-    localStorage.setItem(
-        "beRichCurrentGame",
-        String(game.id)
-    );
-
-    const playerName =
-        getPlayerName();
-
-    if (!playerName) {
-
-        const newName =
-            prompt("Enter your player name:");
-
-        if (!newName || !newName.trim()) {
-
-            alert("Enter your name first.");
-
-            return;
-        }
-
-        localStorage.setItem(
-            "beRichPlayerName",
-            newName.trim()
-        );
-    }
-
-    document.getElementById("playerNameDisplay").textContent =
-        getPlayerName();
+    localStorage.setItem("beRichPlayerName", game.name);
 
     document.getElementById("money").textContent =
-        "$" + Number(game.money).toLocaleString();
+        "$" + game.money;
 
-    document.getElementById("gameProgressText").textContent =
-        "Game progress: " + game.progress + "%";
+    document.getElementById("playerNameDisplay").textContent =
+        game.name;
 
-    document.getElementById("objectiveText").textContent =
-        game.progress >= 100
-            ? "You became rich!"
-            : "Get rich.";
+    hideAllScreens();
 
-    document.querySelectorAll(".screen").forEach(screen => {
-        screen.classList.remove("active");
-    });
-
-    document.querySelector(".menu").style.display =
-        "none";
+    document.getElementById("menu").style.display = "none";
 
     document.getElementById("game").classList.add("active");
-start3DGame();
+
+    start3DGame();
+
 }
 
 function deleteSavedGame(index) {
 
-    const games =
-        getSavedGames();
-
-    const game =
-        games[index];
-
-    if (!game) {
-        return;
-    }
-
-    const confirmDelete =
-        confirm(
-            'Delete "' +
-            game.name +
-            '"?'
-        );
-
-    if (!confirmDelete) {
-        return;
-    }
+    const games = getSavedGames();
 
     games.splice(index, 1);
 
     saveSavedGames(games);
 
     loadSavedGames();
+
 }
 
 
-/* =========================
-   PARTY SYSTEM
-========================= */
+/* PARTY */
 
 function generatePartyCode() {
 
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
     let code = "";
 
     for (let i = 0; i < 6; i++) {
 
-        code +=
-            chars[Math.floor(Math.random() * chars.length)];
+        code += chars[
+            Math.floor(Math.random() * chars.length)
+        ];
+
     }
 
     return code;
-}
 
+}
 
 function createParty() {
 
-    const code =
-        generatePartyCode();
+    const code = generatePartyCode();
 
-    localStorage.setItem(
-        "beRichParty",
-        code
-    );
+    localStorage.setItem("beRichPartyCode", code);
 
-    document.getElementById("partyCode").textContent =
-        code;
+    document.getElementById("partyCode").textContent = code;
+
 }
-
-
-function copyPartyCode() {
-
-    const code =
-        document.getElementById("partyCode").textContent;
-
-    if (code === "------") {
-
-        alert("Create a party first.");
-
-        return;
-    }
-
-    navigator.clipboard.writeText(code)
-
-        .then(() => {
-
-            alert("Party code copied!");
-
-        })
-
-        .catch(() => {
-
-            alert("Your party code is: " + code);
-
-        });
-}
-
-
-function joinParty() {
-
-    const code =
-        document.getElementById("joinCode").value.trim();
-
-    if (code.length !== 6) {
-
-        alert("Enter a valid 6-character party code.");
-
-        return;
-    }
-
-    alert("Party joined: " + code);
-
-    openPlay();
-}
-
 
 function startPartyGame() {
 
-    const games =
-        getSavedGames();
+    if (!localStorage.getItem("beRichPartyCode")) {
+        createParty();
+    }
+
+    const games = getSavedGames();
 
     if (games.length === 0) {
 
-        alert("Create a game first.");
+        games.push({
+            name: getPlayerName(),
+            money: 100,
+            progress: "Starting out"
+        });
 
-        return;
+        saveSavedGames(games);
+
     }
 
     playSavedGame(0);
+
+}
+
+function joinParty() {
+
+    const input =
+        document.getElementById("joinCode");
+
+    const code =
+        input.value.trim().toUpperCase();
+
+    if (code.length !== 6) {
+
+        alert("Enter a valid party code.");
+
+        return;
+
+    }
+
+    alert("Party joined.");
+
+    startPartyGame();
+
 }
 
 
-/* =========================
-   FRIEND SYSTEM
-========================= */
+/* FRIENDS */
 
 function getFriends() {
 
     return JSON.parse(
         localStorage.getItem("beRichFriends") || "[]"
     );
-}
 
+}
 
 function saveFriends(friends) {
 
@@ -1596,8 +952,8 @@ function saveFriends(friends) {
         "beRichFriends",
         JSON.stringify(friends)
     );
-}
 
+}
 
 function addFriend() {
 
@@ -1607,35 +963,12 @@ function addFriend() {
     const name =
         input.value.trim();
 
-    if (!name) {
+    if (!name) return;
 
-        alert("Enter a username.");
-
-        return;
-    }
-
-    let friends =
-        getFriends();
-
-    if (
-        friends.some(
-            friend =>
-                friend.name.toLowerCase() ===
-                name.toLowerCase()
-        )
-    ) {
-
-        alert(
-            "This player is already on your friends list."
-        );
-
-        return;
-    }
+    const friends = getFriends();
 
     friends.push({
-
         name: name,
-
         online: false
     });
 
@@ -1643,38 +976,28 @@ function addFriend() {
 
     input.value = "";
 
-    addNotification(
-        "Friend request",
-        "Friend request sent to " + name + "."
-    );
-
     loadFriends();
 
-    alert("Friend request sent!");
 }
-
 
 function loadFriends() {
 
-    const container =
+    const list =
         document.getElementById("friendList");
 
-    const friends =
-        getFriends();
+    if (!list) return;
 
-    container.innerHTML = "";
+    const friends = getFriends();
+
+    list.innerHTML = "";
 
     if (friends.length === 0) {
 
-        container.innerHTML = `
-            <div class="friend">
-                <span class="offline">
-                    No friends yet.
-                </span>
-            </div>
-        `;
+        list.innerHTML =
+            "<p style='color:#777;'>No friends yet.</p>";
 
         return;
+
     }
 
     friends.forEach((friend, index) => {
@@ -1685,254 +1008,362 @@ function loadFriends() {
         div.className = "friend";
 
         div.innerHTML = `
-
             <div>
-
-                <div class="friend-name">
-                    ${escapeHTML(friend.name)}
-                </div>
-
-                <div class="${friend.online ? "online" : "offline"}">
-
+                <strong>${escapeHTML(friend.name)}</strong>
+                <br>
+                <span class="${friend.online ? "online" : ""}">
                     ${friend.online ? "ONLINE" : "OFFLINE"}
-
-                </div>
-
+                </span>
             </div>
 
-            <button
-                class="delete-friend"
-                onclick="removeFriend(${index})"
-            >
+            <button onclick="removeFriend(${index})">
                 REMOVE
             </button>
-
         `;
 
-        container.appendChild(div);
-    });
-}
+        list.appendChild(div);
 
+    });
+
+}
 
 function removeFriend(index) {
 
-    let friends =
-        getFriends();
+    const friends = getFriends();
 
     friends.splice(index, 1);
 
     saveFriends(friends);
 
     loadFriends();
+
 }
 
 
-/* =========================
-   NOTIFICATIONS
-========================= */
-
-function getNotifications() {
-
-    return JSON.parse(
-        localStorage.getItem("beRichNotifications") || "[]"
-    );
-}
-
-
-function addNotification(title, message) {
-
-    let notifications =
-        getNotifications();
-
-    notifications.unshift({
-
-        title: title,
-
-        message: message,
-
-        time: new Date().toLocaleString()
-    });
-
-    localStorage.setItem(
-        "beRichNotifications",
-        JSON.stringify(notifications)
-    );
-}
-
-
-function loadNotifications() {
-
-    const container =
-        document.getElementById("notificationList");
-
-    const notifications =
-        getNotifications();
-
-    container.innerHTML = "";
-
-    if (notifications.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="notification">
-
-                <strong>
-                    No notifications
-                </strong>
-
-                <span>
-                    You're all caught up.
-                </span>
-
-            </div>
-        `;
-
-        return;
-    }
-
-    notifications.forEach(notification => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "notification";
-
-        div.innerHTML = `
-
-            <strong>
-                ${escapeHTML(notification.title)}
-            </strong>
-
-            <span>
-                ${escapeHTML(notification.message)}
-            </span>
-        `;
-
-        container.appendChild(div);
-    });
-}
-
-
-/* =========================
-   SECURITY
-========================= */
+/* SECURITY */
 
 function escapeHTML(text) {
 
-    const div =
-        document.createElement("div");
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
-    div.textContent =
-        text;
-
-    return div.innerHTML;
 }
 
 
-/* =========================
-   STARTUP
-========================= */
+/* 3D GAME */
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    document.querySelector(".menu").style.display =
-        "flex";
-
-    loadFriends();
-
-    loadNotifications();
-
-    const savedParty =
-        localStorage.getItem("beRichParty");
-
-    if (savedParty) {
-
-        document.getElementById("partyCode").textContent =
-            savedParty;
-    }
-});
-<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
 let threeStarted = false;
 
 function start3DGame() {
+
     if (threeStarted) return;
+
     threeStarted = true;
 
-    const container = document.getElementById("gameCanvas");
+    const container =
+        document.getElementById("gameCanvas");
 
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87ceeb);
+    const scene =
+        new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(
-        70,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
+    scene.background =
+        new THREE.Color(0x87ceeb);
+
+
+    /* CAMERA */
+
+    const camera =
+        new THREE.PerspectiveCamera(
+            70,
+            window.innerWidth /
+            window.innerHeight,
+            0.1,
+            1000
+        );
+
+
+    /* RENDERER */
+
+    const renderer =
+        new THREE.WebGLRenderer({
+            antialias: true
+        });
+
+    renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio, 2)
     );
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
-    const light = new THREE.DirectionalLight(0xffffff, 2);
-    light.position.set(10, 20, 10);
-    scene.add(light);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-
-    const ground = new THREE.Mesh(
-        new THREE.PlaneGeometry(200, 200),
-        new THREE.MeshStandardMaterial({ color: 0x3f7d3f })
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
     );
 
-    ground.rotation.x = -Math.PI / 2;
+    container.appendChild(
+        renderer.domElement
+    );
+
+
+    /* LIGHT */
+
+    const sun =
+        new THREE.DirectionalLight(
+            0xffffff,
+            2
+        );
+
+    sun.position.set(
+        20,
+        30,
+        10
+    );
+
+    scene.add(sun);
+
+    scene.add(
+        new THREE.AmbientLight(
+            0xffffff,
+            0.7
+        )
+    );
+
+
+    /* GROUND */
+
+    const ground =
+        new THREE.Mesh(
+            new THREE.PlaneGeometry(
+                300,
+                300
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0x3f7d3f
+            })
+        );
+
+    ground.rotation.x =
+        -Math.PI / 2;
+
     scene.add(ground);
 
-    const player = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 2, 1),
-        new THREE.MeshStandardMaterial({ color: 0xffffff })
-    );
+
+    /* ROAD */
+
+    const road =
+        new THREE.Mesh(
+            new THREE.PlaneGeometry(
+                12,
+                300
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0x333333
+            })
+        );
+
+    road.rotation.x =
+        -Math.PI / 2;
+
+    road.position.y =
+        0.01;
+
+    scene.add(road);
+
+
+    /* PLAYER */
+
+    const player =
+        new THREE.Mesh(
+            new THREE.BoxGeometry(
+                1,
+                2,
+                1
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0xffffff
+            })
+        );
 
     player.position.y = 1;
+
     scene.add(player);
 
-    camera.position.set(0, 7, 10);
+
+    /* SIMPLE BUILDINGS */
+
+    for (let i = -40; i <= 40; i += 10) {
+
+        const building =
+            new THREE.Mesh(
+                new THREE.BoxGeometry(
+                    7,
+                    6 + Math.random() * 8,
+                    7
+                ),
+                new THREE.MeshStandardMaterial({
+                    color: 0x777777
+                })
+            );
+
+        building.position.set(
+            15,
+            building.geometry.parameters.height / 2,
+            i
+        );
+
+        scene.add(building);
+
+    }
+
+
+    /* CAMERA */
+
+    camera.position.set(
+        0,
+        7,
+        10
+    );
+
+
+    /* CONTROLS */
 
     const keys = {};
 
-    window.addEventListener("keydown", e => {
-        keys[e.key.toLowerCase()] = true;
-    });
+    window.addEventListener(
+        "keydown",
+        event => {
 
-    window.addEventListener("keyup", e => {
-        keys[e.key.toLowerCase()] = false;
-    });
+            keys[
+                event.key.toLowerCase()
+            ] = true;
+
+        }
+    );
+
+    window.addEventListener(
+        "keyup",
+        event => {
+
+            keys[
+                event.key.toLowerCase()
+            ] = false;
+
+        }
+    );
+
+
+    /* GAME LOOP */
 
     function animate() {
-        requestAnimationFrame(animate);
 
-        const speed = 0.12;
+        requestAnimationFrame(
+            animate
+        );
 
-        if (keys["w"]) player.position.z -= speed;
-        if (keys["s"]) player.position.z += speed;
-        if (keys["a"]) player.position.x -= speed;
-        if (keys["d"]) player.position.x += speed;
+        const speed = 0.15;
 
-        camera.position.x = player.position.x;
-        camera.position.z = player.position.z + 10;
-        camera.lookAt(player.position);
 
-        renderer.render(scene, camera);
+        if (keys["w"]) {
+            player.position.z -= speed;
+        }
+
+        if (keys["s"]) {
+            player.position.z += speed;
+        }
+
+        if (keys["a"]) {
+            player.position.x -= speed;
+        }
+
+        if (keys["d"]) {
+            player.position.x += speed;
+        }
+
+
+        camera.position.x =
+            player.position.x;
+
+        camera.position.z =
+            player.position.z + 10;
+
+        camera.lookAt(
+            player.position
+        );
+
+
+        renderer.render(
+            scene,
+            camera
+        );
+
     }
 
     animate();
 
-    window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+
+    /* RESIZE */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            camera.aspect =
+                window.innerWidth /
+                window.innerHeight;
+
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(
+                window.innerWidth,
+                window.innerHeight
+            );
+
+        }
+    );
+
 }
+
+
+/* STARTUP */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        document.getElementById(
+            "menu"
+        ).style.display = "flex";
+
+        loadFriends();
+
+        loadSavedGames();
+
+        const savedName =
+            getPlayerName();
+
+        document.getElementById(
+            "settingsName"
+        ).value = savedName;
+
+        const partyCode =
+            localStorage.getItem(
+                "beRichPartyCode"
+            );
+
+        if (partyCode) {
+
+            document.getElementById(
+                "partyCode"
+            ).textContent =
+                partyCode;
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
