@@ -263,6 +263,83 @@ button {
 }
 
 /* =========================
+   SAVED GAMES
+========================= */
+
+.saved-games {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.saved-game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    background: #0c0c0c;
+    border: 1px solid #292929;
+    border-radius: 10px;
+}
+
+.saved-game-info {
+    flex: 1;
+}
+
+.saved-game-name {
+    font-size: 19px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.saved-game-stats {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.saved-game-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.play-save-btn,
+.delete-save-btn {
+    border: 1px solid #444;
+    border-radius: 7px;
+    padding: 10px 15px;
+    font-weight: 900;
+}
+
+.play-save-btn {
+    background: white;
+    color: black;
+}
+
+.play-save-btn:hover {
+    background: #ddd;
+}
+
+.delete-save-btn {
+    background: #181818;
+    color: #aaa;
+}
+
+.delete-save-btn:hover {
+    background: #252525;
+    color: white;
+}
+
+.no-saves {
+    text-align: center;
+    padding: 35px;
+    border: 1px dashed #444;
+    border-radius: 10px;
+    color: #666;
+}
+
+/* =========================
    PARTY
 ========================= */
 
@@ -501,6 +578,20 @@ button {
     .camping-car {
         transform: translate(-50%, -50%) scale(.75);
     }
+
+    .saved-game {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .saved-game-buttons {
+        width: 100%;
+    }
+
+    .play-save-btn,
+    .delete-save-btn {
+        flex: 1;
+    }
 }
 </style>
 </head>
@@ -515,7 +606,9 @@ button {
 
 <section id="menu" class="menu">
 
-    <div class="logo">BE RICH</div>
+    <div class="logo">
+        BE RICH
+    </div>
 
     <div class="subtitle">
         Start with nothing. Build everything.
@@ -572,72 +665,71 @@ button {
 
     <div class="panel">
 
-        <!-- NAME BOX -->
+        <h2>
+            SAVED GAMES
+        </h2>
 
-        <div id="nameBox" style="display:none;">
+        <p>
+            Choose a game to continue or create a new one.
+        </p>
 
-            <h2>ENTER YOUR NAME</h2>
+        <div id="savedGames" class="saved-games"></div>
 
-            <p>
-                Choose the name you want other players to see.
-            </p>
+        <button class="create-btn" onclick="showNewGame()">
+            NEW GAME
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     NEW GAME
+========================= -->
+
+<section id="newGame" class="screen">
+
+    <div class="topbar">
+
+        <div class="top-title">
+            NEW GAME
+        </div>
+
+        <button class="back-btn" onclick="openPlay()">
+            BACK
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>
+            Create a new game
+        </h2>
+
+        <p>
+            Give your new game a name.
+        </p>
+
+        <div class="form-group">
+
+            <label>
+                Game name
+            </label>
 
             <input
-                id="playerNameInput"
+                id="newGameName"
                 class="text-input"
-                maxlength="20"
-                placeholder="Enter your name..."
+                maxlength="30"
+                placeholder="My First Game"
             >
 
-            <button class="create-btn" onclick="savePlayerName()">
-                CONTINUE
-            </button>
-
         </div>
 
-
-        <!-- PLAY OPTIONS -->
-
-        <div id="playOptions">
-
-            <h2>
-                How do you want to play?
-            </h2>
-
-            <p>
-                Choose how you want to start your journey.
-            </p>
-
-            <div class="option-grid">
-
-                <button class="option" onclick="startSolo()">
-
-                    <div class="option-title">
-                        PLAY SOLO
-                    </div>
-
-                    <div class="option-desc">
-                        Start your own game and build your fortune alone.
-                    </div>
-
-                </button>
-
-
-                <button class="option" onclick="showScreen('friendsPlay')">
-
-                    <div class="option-title">
-                        PLAY WITH FRIENDS
-                    </div>
-
-                    <div class="option-desc">
-                        Create a private party or join one with a code.
-                    </div>
-
-                </button>
-
-            </div>
-
-        </div>
+        <button class="create-btn" onclick="createNewGame()">
+            CREATE GAME
+        </button>
 
     </div>
 
@@ -656,7 +748,7 @@ button {
             PLAY WITH FRIENDS
         </div>
 
-        <button class="back-btn" onclick="showScreen('play')">
+        <button class="back-btn" onclick="openPlay()">
             BACK
         </button>
 
@@ -677,7 +769,6 @@ button {
                 </div>
 
             </button>
-
 
             <button class="option" onclick="showScreen('joinParty')">
 
@@ -930,7 +1021,6 @@ button {
             Customize your BE RICH experience.
         </p>
 
-
         <button
             class="option"
             style="width:100%;min-height:90px;"
@@ -949,7 +1039,6 @@ button {
 
         <br><br>
 
-
         <button
             class="option"
             style="width:100%;min-height:90px;"
@@ -966,7 +1055,6 @@ button {
         </button>
 
         <br><br>
-
 
         <button
             class="option"
@@ -1041,14 +1129,12 @@ button {
             </span>
         </div>
 
-
         <div class="player-display">
             PLAYER:
             <span id="playerNameDisplay">
                 Player
             </span>
         </div>
-
 
         <div class="objective">
 
@@ -1058,13 +1144,13 @@ button {
 
             <br>
 
-            Get rich.
+            <span id="objectiveText">
+                Get rich.
+            </span>
 
         </div>
 
-
         <div class="camping-car"></div>
-
 
         <div class="game-text">
 
@@ -1072,7 +1158,7 @@ button {
                 Welcome to BE RICH
             </h1>
 
-            <p>
+            <p id="gameProgressText">
                 You start with an old camping car and $100.
             </p>
 
@@ -1121,63 +1207,19 @@ function showScreen(id) {
 
 
 /* =========================
-   PLAY / PLAYER NAME
+   PLAYER NAME
 ========================= */
 
-function openPlay() {
+function getPlayerName() {
 
-    const savedName =
-        localStorage.getItem("beRichPlayerName");
-
-    showScreen("play");
-
-    if (!savedName) {
-
-        document.getElementById("nameBox").style.display = "block";
-
-        document.getElementById("playOptions").style.display = "none";
-
-    } else {
-
-        document.getElementById("nameBox").style.display = "none";
-
-        document.getElementById("playOptions").style.display = "block";
-    }
-}
-
-
-function savePlayerName() {
-
-    const input =
-        document.getElementById("playerNameInput");
-
-    const name =
-        input.value.trim();
-
-    if (!name) {
-
-        alert("Enter your name.");
-
-        return;
-    }
-
-    localStorage.setItem(
-        "beRichPlayerName",
-        name
-    );
-
-    input.value = "";
-
-    document.getElementById("nameBox").style.display = "none";
-
-    document.getElementById("playOptions").style.display = "block";
+    return localStorage.getItem("beRichPlayerName") || "";
 }
 
 
 function changeName() {
 
     const currentName =
-        localStorage.getItem("beRichPlayerName") || "";
+        getPlayerName();
 
     const newName =
         prompt("Enter your new name:", currentName);
@@ -1206,38 +1248,250 @@ function changeName() {
 
 
 /* =========================
-   GAME
+   PLAY / SAVED GAMES
 ========================= */
 
-function startSolo() {
+function openPlay() {
 
-    const savedName =
-        localStorage.getItem("beRichPlayerName");
+    showScreen("play");
 
-    if (!savedName) {
+    loadSavedGames();
+}
 
-        openPlay();
+
+function getSavedGames() {
+
+    return JSON.parse(
+        localStorage.getItem("beRichSavedGames") || "[]"
+    );
+}
+
+
+function saveSavedGames(games) {
+
+    localStorage.setItem(
+        "beRichSavedGames",
+        JSON.stringify(games)
+    );
+}
+
+
+function loadSavedGames() {
+
+    const container =
+        document.getElementById("savedGames");
+
+    const games =
+        getSavedGames();
+
+    container.innerHTML = "";
+
+    if (games.length === 0) {
+
+        container.innerHTML = `
+            <div class="no-saves">
+                No saved games yet.
+            </div>
+        `;
 
         return;
     }
 
+    games.forEach((game, index) => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "saved-game";
+
+        div.innerHTML = `
+
+            <div class="saved-game-info">
+
+                <div class="saved-game-name">
+                    ${escapeHTML(game.name)}
+                </div>
+
+                <div class="saved-game-stats">
+
+                    MONEY:
+                    $${Number(game.money).toLocaleString()}
+
+                    <br>
+
+                    PROGRESS:
+                    ${game.progress}%
+
+                </div>
+
+            </div>
+
+            <div class="saved-game-buttons">
+
+                <button
+                    class="play-save-btn"
+                    onclick="playSavedGame(${index})"
+                >
+                    PLAY
+                </button>
+
+                <button
+                    class="delete-save-btn"
+                    onclick="deleteSavedGame(${index})"
+                >
+                    DELETE
+                </button>
+
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+
+function showNewGame() {
+
+    showScreen("newGame");
+
+    document.getElementById("newGameName").value = "";
+
+    setTimeout(() => {
+
+        document.getElementById("newGameName").focus();
+
+    }, 100);
+}
+
+
+function createNewGame() {
+
+    const input =
+        document.getElementById("newGameName");
+
+    const name =
+        input.value.trim();
+
+    if (!name) {
+
+        alert("Enter a game name.");
+
+        return;
+    }
+
+    let games =
+        getSavedGames();
+
+    const newGame = {
+
+        id: Date.now(),
+
+        name: name,
+
+        money: 100,
+
+        progress: 0
+    };
+
+    games.push(newGame);
+
+    saveSavedGames(games);
+
+    playSavedGame(games.length - 1);
+}
+
+
+function playSavedGame(index) {
+
+    const games =
+        getSavedGames();
+
+    const game =
+        games[index];
+
+    if (!game) {
+        return;
+    }
+
+    localStorage.setItem(
+        "beRichCurrentGame",
+        String(game.id)
+    );
+
+    const playerName =
+        getPlayerName();
+
+    if (!playerName) {
+
+        const newName =
+            prompt("Enter your player name:");
+
+        if (!newName || !newName.trim()) {
+
+            alert("Enter your name first.");
+
+            return;
+        }
+
+        localStorage.setItem(
+            "beRichPlayerName",
+            newName.trim()
+        );
+    }
+
     document.getElementById("playerNameDisplay").textContent =
-        savedName;
+        getPlayerName();
+
+    document.getElementById("money").textContent =
+        "$" + Number(game.money).toLocaleString();
+
+    document.getElementById("gameProgressText").textContent =
+        "Game progress: " + game.progress + "%";
+
+    document.getElementById("objectiveText").textContent =
+        game.progress >= 100
+            ? "You became rich!"
+            : "Get rich.";
 
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
-    document.querySelector(".menu").style.display = "none";
+    document.querySelector(".menu").style.display =
+        "none";
 
     document.getElementById("game").classList.add("active");
 }
 
 
-function startPartyGame() {
+function deleteSavedGame(index) {
 
-    startSolo();
+    const games =
+        getSavedGames();
 
+    const game =
+        games[index];
+
+    if (!game) {
+        return;
+    }
+
+    const confirmDelete =
+        confirm(
+            'Delete "' +
+            game.name +
+            '"?'
+        );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    games.splice(index, 1);
+
+    saveSavedGames(games);
+
+    loadSavedGames();
 }
 
 
@@ -1319,7 +1573,23 @@ function joinParty() {
 
     alert("Party joined: " + code);
 
-    startSolo();
+    openPlay();
+}
+
+
+function startPartyGame() {
+
+    const games =
+        getSavedGames();
+
+    if (games.length === 0) {
+
+        alert("Create a game first.");
+
+        return;
+    }
+
+    playSavedGame(0);
 }
 
 
@@ -1382,7 +1652,6 @@ function addFriend() {
         name: name,
 
         online: false
-
     });
 
     saveFriends(friends);
@@ -1456,7 +1725,6 @@ function loadFriends() {
         `;
 
         container.appendChild(div);
-
     });
 }
 
@@ -1498,7 +1766,6 @@ function addNotification(title, message) {
         message: message,
 
         time: new Date().toLocaleString()
-
     });
 
     localStorage.setItem(
@@ -1533,7 +1800,6 @@ function loadNotifications() {
                 </span>
 
             </div>
-
         `;
 
         return;
@@ -1555,11 +1821,9 @@ function loadNotifications() {
             <span>
                 ${escapeHTML(notification.message)}
             </span>
-
         `;
 
         container.appendChild(div);
-
     });
 }
 
